@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -50,16 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characteristic.cs">
-      <DependentUpon>MyPhotosModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CharacteristicValue.cs">
-      <DependentUpon>MyPhotosModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Api\Constants\FileType.cs" />
+    <Compile Include="Api\DTOs\FileDto.cs" />
+    <Compile Include="Api\Interfaces\IMyPhotosService.cs" />
+    <Compile Include="Api\MappingDomainToDto\FileProfile.cs" />
+    <Compile Include="Api\MyPhotosService.cs" />
+    <Compile Include="Api\PropertyTypeService.cs" />
+    <Compile Include="Api\FileService.cs" />
+    <Compile Include="Api\Interfaces\IPropertyTypeService.cs" />
+    <Compile Include="Api\Interfaces\IFileService.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Eveniment.cs">
-      <DependentUpon>MyPhotosModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="File.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
@@ -78,26 +81,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyPhotosModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>MyPhotosModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Place.cs">
-      <DependentUpon>MyPhotosModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyType.cs">
+      <DependentUpon>MyPhotosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyValue.cs">
+      <DependentUpon>MyPhotosModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="MyPhotosModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MyPhotosModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="MyPhotosModel.edmx.diagram">
       <DependentUpon>MyPhotosModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyPhotosModel.Context.tt">
@@ -112,12 +116,6 @@
       <DependentUpon>MyPhotosModel.edmx</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Api\" />
-    <Folder Include="DataAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

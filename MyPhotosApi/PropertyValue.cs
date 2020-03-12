@@ -12,18 +12,19 @@ namespace MyPhotosApi
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class PropertyValue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public PropertyValue()
         {
             this.Files = new HashSet<File>();
         }
     
         public System.Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Value { get; set; }
+        public System.Guid PropertyTypeId { get; set; }
     
+        public virtual PropertyType PropertyType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
     }

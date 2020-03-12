@@ -7,20 +7,20 @@
     <Schema Namespace="MyPhotosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="MyPhotosModelStoreContainer">
     <EntitySet Name="Files" EntityType="MyPhotosModel.Store.Files" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CharacteristicTypes" EntityType="MyPhotosModel.Store.CharacteristicTypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CharacteristicValues" EntityType="MyPhotosModel.Store.CharacteristicValues" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="FileCharacteristicValue" EntityType="MyPhotosModel.Store.FileCharacteristicValue" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_FileCharacteristicValue_File" Association="MyPhotosModel.Store.FK_FileCharacteristicValue_File">
+    <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.Store.PropertyTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PropertyValues" EntityType="MyPhotosModel.Store.PropertyValues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilePropertyValue" EntityType="MyPhotosModel.Store.FilePropertyValue" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PropertyTypePropertyValue" Association="MyPhotosModel.Store.PropertyTypePropertyValue">
+      <End Role="PropertyType" EntitySet="PropertyTypes" />
+      <End Role="PropertyValue" EntitySet="PropertyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilePropertyValue_File" Association="MyPhotosModel.Store.FK_FilePropertyValue_File">
       <End Role="File" EntitySet="Files" />
-      <End Role="FileCharacteristicValue" EntitySet="FileCharacteristicValue" />
+      <End Role="FilePropertyValue" EntitySet="FilePropertyValue" />
     </AssociationSet>
-    <AssociationSet Name="FK_FileCharacteristicValue_CharacteristicValue" Association="MyPhotosModel.Store.FK_FileCharacteristicValue_CharacteristicValue">
-      <End Role="CharacteristicValue" EntitySet="CharacteristicValues" />
-      <End Role="FileCharacteristicValue" EntitySet="FileCharacteristicValue" />
-    </AssociationSet>
-    <AssociationSet Name="CharacteristicTypeCharacteristicValue" Association="MyPhotosModel.Store.CharacteristicTypeCharacteristicValue">
-      <End Role="CharacteristicType" EntitySet="CharacteristicTypes" />
-      <End Role="CharacteristicValue" EntitySet="CharacteristicValues" />
+    <AssociationSet Name="FK_FilePropertyValue_PropertyValue" Association="MyPhotosModel.Store.FK_FilePropertyValue_PropertyValue">
+      <End Role="PropertyValue" EntitySet="PropertyValues" />
+      <End Role="FilePropertyValue" EntitySet="FilePropertyValue" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Files">
@@ -29,67 +29,67 @@
     </Key>
     <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="bit" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Erased" Type="bit" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="CharacteristicTypes">
+  <EntityType Name="PropertyTypes">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="CharacteristicValues">
+  <EntityType Name="PropertyValues">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CharacteristicTypeId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PropertyTypeId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <EntityType Name="FileCharacteristicValue">
+  <EntityType Name="FilePropertyValue">
     <Key>
       <PropertyRef Name="Files_Id" />
-      <PropertyRef Name="CharacteristicValues_Id" />
+      <PropertyRef Name="PropertyValues_Id" />
     </Key>
     <Property Name="Files_Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CharacteristicValues_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PropertyValues_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <Association Name="CharacteristicTypeCharacteristicValue">
-    <End Role="CharacteristicType" Type="MyPhotosModel.Store.CharacteristicTypes" Multiplicity="1" />
-    <End Role="CharacteristicValue" Type="MyPhotosModel.Store.CharacteristicValues" Multiplicity="*" />
+  <Association Name="PropertyTypePropertyValue">
+    <End Role="PropertyType" Type="MyPhotosModel.Store.PropertyTypes" Multiplicity="1" />
+    <End Role="PropertyValue" Type="MyPhotosModel.Store.PropertyValues" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="CharacteristicType">
+      <Principal Role="PropertyType">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="CharacteristicValue">
-        <PropertyRef Name="CharacteristicTypeId" />
+      <Dependent Role="PropertyValue">
+        <PropertyRef Name="PropertyTypeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FileCharacteristicValue_File">
+  <Association Name="FK_FilePropertyValue_File">
     <End Role="File" Type="MyPhotosModel.Store.Files" Multiplicity="1" />
-    <End Role="FileCharacteristicValue" Type="MyPhotosModel.Store.FileCharacteristicValue" Multiplicity="*" />
+    <End Role="FilePropertyValue" Type="MyPhotosModel.Store.FilePropertyValue" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="File">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="FileCharacteristicValue">
+      <Dependent Role="FilePropertyValue">
         <PropertyRef Name="Files_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FileCharacteristicValue_CharacteristicValue">
-    <End Role="FileCharacteristicValue" Type="MyPhotosModel.Store.FileCharacteristicValue" Multiplicity="*" />
-    <End Role="CharacteristicValue" Type="MyPhotosModel.Store.CharacteristicValues" Multiplicity="1" />
+  <Association Name="FK_FilePropertyValue_PropertyValue">
+    <End Role="FilePropertyValue" Type="MyPhotosModel.Store.FilePropertyValue" Multiplicity="*" />
+    <End Role="PropertyValue" Type="MyPhotosModel.Store.PropertyValues" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="CharacteristicValue">
+      <Principal Role="PropertyValue">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="FileCharacteristicValue">
-        <PropertyRef Name="CharacteristicValues_Id" />
+      <Dependent Role="FilePropertyValue">
+        <PropertyRef Name="PropertyValues_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -99,64 +99,64 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MyPhotosModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="MyPhotosContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Files" EntityType="MyPhotosModel.File" />
-          <EntitySet Name="CharacteristicTypes" EntityType="MyPhotosModel.CharacteristicType" />
-          <EntitySet Name="CharacteristicValues" EntityType="MyPhotosModel.CharacteristicValue" />
-          <AssociationSet Name="FileCharacteristicValue" Association="MyPhotosModel.FileCharacteristicValue">
+          <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.PropertyType" />
+          <EntitySet Name="PropertyValues" EntityType="MyPhotosModel.PropertyValue" />
+          <AssociationSet Name="PropertyTypePropertyValue" Association="MyPhotosModel.PropertyTypePropertyValue">
+            <End Role="PropertyType" EntitySet="PropertyTypes" />
+            <End Role="PropertyValue" EntitySet="PropertyValues" />
+          </AssociationSet>
+          <AssociationSet Name="FilePropertyValue" Association="MyPhotosModel.FilePropertyValue">
             <End Role="File" EntitySet="Files" />
-            <End Role="CharacteristicValue" EntitySet="CharacteristicValues" />
+            <End Role="PropertyValue" EntitySet="PropertyValues" />
           </AssociationSet>
-          <AssociationSet Name="CharacteristicTypeCharacteristicValue" Association="MyPhotosModel.CharacteristicTypeCharacteristicValue">
-            <End Role="CharacteristicType" EntitySet="CharacteristicTypes" />
-            <End Role="CharacteristicValue" EntitySet="CharacteristicValues" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="File">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Path" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Type" Type="Boolean" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Erased" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CharacteristicValues" Relationship="MyPhotosModel.FileCharacteristicValue" FromRole="File" ToRole="CharacteristicValue" />
+          <NavigationProperty Name="PropertyValues" Relationship="MyPhotosModel.FilePropertyValue" FromRole="File" ToRole="PropertyValue" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
         </EntityType>
-        <EntityType Name="CharacteristicType">
+        <EntityType Name="PropertyType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <NavigationProperty Name="CharacteristicValues" Relationship="MyPhotosModel.CharacteristicTypeCharacteristicValue" FromRole="CharacteristicType" ToRole="CharacteristicValue" />
+          <NavigationProperty Name="PropertyValues" Relationship="MyPhotosModel.PropertyTypePropertyValue" FromRole="PropertyType" ToRole="PropertyValue" />
         </EntityType>
-        <EntityType Name="CharacteristicValue">
+        <EntityType Name="PropertyValue">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" Nullable="false" />
-          <NavigationProperty Name="Files" Relationship="MyPhotosModel.FileCharacteristicValue" FromRole="CharacteristicValue" ToRole="File" />
-          <NavigationProperty Name="CharacteristicType" Relationship="MyPhotosModel.CharacteristicTypeCharacteristicValue" FromRole="CharacteristicValue" ToRole="CharacteristicType" />
-          <Property Name="CharacteristicTypeId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PropertyType" Relationship="MyPhotosModel.PropertyTypePropertyValue" FromRole="PropertyValue" ToRole="PropertyType" />
+          <Property Name="PropertyTypeId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Files" Relationship="MyPhotosModel.FilePropertyValue" FromRole="PropertyValue" ToRole="File" />
         </EntityType>
-        <Association Name="FileCharacteristicValue">
-          <End Type="MyPhotosModel.File" Role="File" Multiplicity="*" />
-          <End Type="MyPhotosModel.CharacteristicValue" Role="CharacteristicValue" Multiplicity="*" />
-        </Association>
-        <Association Name="CharacteristicTypeCharacteristicValue">
-          <End Type="MyPhotosModel.CharacteristicType" Role="CharacteristicType" Multiplicity="1" />
-          <End Type="MyPhotosModel.CharacteristicValue" Role="CharacteristicValue" Multiplicity="*" />
+        <Association Name="PropertyTypePropertyValue">
+          <End Type="MyPhotosModel.PropertyType" Role="PropertyType" Multiplicity="1" />
+          <End Type="MyPhotosModel.PropertyValue" Role="PropertyValue" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CharacteristicType">
+            <Principal Role="PropertyType">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CharacteristicValue">
-              <PropertyRef Name="CharacteristicTypeId" />
+            <Dependent Role="PropertyValue">
+              <PropertyRef Name="PropertyTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <Association Name="FilePropertyValue">
+          <End Type="MyPhotosModel.File" Role="File" Multiplicity="*" />
+          <End Type="MyPhotosModel.PropertyValue" Role="PropertyValue" Multiplicity="*" />
+        </Association>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -167,36 +167,36 @@
         <MappingFragment StoreEntitySet="Files">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Path" ColumnName="Path" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Erased" ColumnName="Erased" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CharacteristicTypes">
-      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.CharacteristicType)">
-        <MappingFragment StoreEntitySet="CharacteristicTypes">
+    <EntitySetMapping Name="PropertyTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.PropertyType)">
+        <MappingFragment StoreEntitySet="PropertyTypes">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CharacteristicValues">
-      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.CharacteristicValue)">
-        <MappingFragment StoreEntitySet="CharacteristicValues">
+    <EntitySetMapping Name="PropertyValues">
+      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.PropertyValue)">
+        <MappingFragment StoreEntitySet="PropertyValues">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="CharacteristicTypeId" ColumnName="CharacteristicTypeId" />
+          <ScalarProperty Name="PropertyTypeId" ColumnName="PropertyTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="FileCharacteristicValue" TypeName="MyPhotosModel.FileCharacteristicValue" StoreEntitySet="FileCharacteristicValue">
+    <AssociationSetMapping Name="FilePropertyValue" TypeName="MyPhotosModel.FilePropertyValue" StoreEntitySet="FilePropertyValue">
       <EndProperty Name="File">
         <ScalarProperty Name="Id" ColumnName="Files_Id" />
       </EndProperty>
-      <EndProperty Name="CharacteristicValue">
-        <ScalarProperty Name="Id" ColumnName="CharacteristicValues_Id" />
+      <EndProperty Name="PropertyValue">
+        <ScalarProperty Name="Id" ColumnName="PropertyValues_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

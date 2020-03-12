@@ -26,7 +26,7 @@ namespace MyPhotosApi
         }
     
         public virtual DbSet<File> Files { get; set; }
-        public virtual DbSet<CharacteristicType> CharacteristicTypes { get; set; }
-        public virtual DbSet<CharacteristicValue> CharacteristicValues { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+        public virtual DbSet<PropertyValue> PropertyValues { get; set; }
     }
 }

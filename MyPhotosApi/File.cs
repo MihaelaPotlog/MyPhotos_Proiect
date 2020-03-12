@@ -17,26 +17,17 @@ namespace MyPhotosApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public File()
         {
-            this.Eveniments = new HashSet<Eveniment>();
-            this.People = new HashSet<Person>();
-            this.Places = new HashSet<Place>();
-            this.CharacteristicValues = new HashSet<CharacteristicValue>();
+            this.PropertyValues = new HashSet<PropertyValue>();
         }
     
         public System.Guid Id { get; set; }
         public string Path { get; set; }
+        public string Name { get; set; }
         public bool Type { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Description { get; set; }
         public bool Erased { get; set; }
+        public System.DateTime Date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Eveniment> Eveniments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person> People { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Place> Places { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CharacteristicValue> CharacteristicValues { get; set; }
+        public virtual ICollection<PropertyValue> PropertyValues { get; set; }
     }
 }

@@ -12,18 +12,18 @@ namespace MyPhotosApi
     using System;
     using System.Collections.Generic;
     
-    public partial class Eveniment
+    public partial class PropertyType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Eveniment()
+        public PropertyType()
         {
-            this.Files = new HashSet<File>();
+            this.PropertyValues = new HashSet<PropertyValue>();
         }
     
         public System.Guid Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<PropertyValue> PropertyValues { get; set; }
     }
 }

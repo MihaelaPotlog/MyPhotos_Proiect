@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/12/2020 17:27:29
+-- Date Created: 03/12/2020 21:28:20
 -- Generated from EDMX file: C:\Users\mihaela\source\repos\MyPhotos\MyPhotosApi\MyPhotosModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [C:\USERS\MIHAELA\DOCUMENTS\MYPHOTOS.MDF];
+USE [MyPhotos];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,32 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_FileCharacteristicValue_File]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[FileCharacteristicValue] DROP CONSTRAINT [FK_FileCharacteristicValue_File];
-GO
-IF OBJECT_ID(N'[dbo].[FK_FileCharacteristicValue_CharacteristicValue]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[FileCharacteristicValue] DROP CONSTRAINT [FK_FileCharacteristicValue_CharacteristicValue];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CharacteristicTypeCharacteristicValue]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CharacteristicValues] DROP CONSTRAINT [FK_CharacteristicTypeCharacteristicValue];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Files]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Files];
-GO
-IF OBJECT_ID(N'[dbo].[CharacteristicTypes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CharacteristicTypes];
-GO
-IF OBJECT_ID(N'[dbo].[CharacteristicValues]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CharacteristicValues];
-GO
-IF OBJECT_ID(N'[dbo].[FileCharacteristicValue]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[FileCharacteristicValue];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -52,32 +31,32 @@ GO
 CREATE TABLE [dbo].[Files] (
     [Id] uniqueidentifier  NOT NULL,
     [Path] nvarchar(max)  NOT NULL,
-    [Type] bit  NOT NULL,
-    [Date] datetime  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Erased] bit  NOT NULL
+    [Type] bit  NOT NULL,
+    [Erased] bit  NOT NULL,
+    [Date] datetime  NOT NULL
 );
 GO
 
--- Creating table 'CharacteristicTypes'
-CREATE TABLE [dbo].[CharacteristicTypes] (
+-- Creating table 'PropertyTypes'
+CREATE TABLE [dbo].[PropertyTypes] (
     [Id] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL
 );
 GO
 
--- Creating table 'CharacteristicValues'
-CREATE TABLE [dbo].[CharacteristicValues] (
+-- Creating table 'PropertyValues'
+CREATE TABLE [dbo].[PropertyValues] (
     [Id] uniqueidentifier  NOT NULL,
     [Value] nvarchar(max)  NOT NULL,
-    [CharacteristicTypeId] uniqueidentifier  NOT NULL
+    [PropertyTypeId] uniqueidentifier  NOT NULL
 );
 GO
 
--- Creating table 'FileCharacteristicValue'
-CREATE TABLE [dbo].[FileCharacteristicValue] (
+-- Creating table 'FilePropertyValue'
+CREATE TABLE [dbo].[FilePropertyValue] (
     [Files_Id] uniqueidentifier  NOT NULL,
-    [CharacteristicValues_Id] uniqueidentifier  NOT NULL
+    [PropertyValues_Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -91,65 +70,65 @@ ADD CONSTRAINT [PK_Files]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'CharacteristicTypes'
-ALTER TABLE [dbo].[CharacteristicTypes]
-ADD CONSTRAINT [PK_CharacteristicTypes]
+-- Creating primary key on [Id] in table 'PropertyTypes'
+ALTER TABLE [dbo].[PropertyTypes]
+ADD CONSTRAINT [PK_PropertyTypes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'CharacteristicValues'
-ALTER TABLE [dbo].[CharacteristicValues]
-ADD CONSTRAINT [PK_CharacteristicValues]
+-- Creating primary key on [Id] in table 'PropertyValues'
+ALTER TABLE [dbo].[PropertyValues]
+ADD CONSTRAINT [PK_PropertyValues]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Files_Id], [CharacteristicValues_Id] in table 'FileCharacteristicValue'
-ALTER TABLE [dbo].[FileCharacteristicValue]
-ADD CONSTRAINT [PK_FileCharacteristicValue]
-    PRIMARY KEY CLUSTERED ([Files_Id], [CharacteristicValues_Id] ASC);
+-- Creating primary key on [Files_Id], [PropertyValues_Id] in table 'FilePropertyValue'
+ALTER TABLE [dbo].[FilePropertyValue]
+ADD CONSTRAINT [PK_FilePropertyValue]
+    PRIMARY KEY CLUSTERED ([Files_Id], [PropertyValues_Id] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [Files_Id] in table 'FileCharacteristicValue'
-ALTER TABLE [dbo].[FileCharacteristicValue]
-ADD CONSTRAINT [FK_FileCharacteristicValue_File]
+-- Creating foreign key on [PropertyTypeId] in table 'PropertyValues'
+ALTER TABLE [dbo].[PropertyValues]
+ADD CONSTRAINT [FK_PropertyTypePropertyValue]
+    FOREIGN KEY ([PropertyTypeId])
+    REFERENCES [dbo].[PropertyTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PropertyTypePropertyValue'
+CREATE INDEX [IX_FK_PropertyTypePropertyValue]
+ON [dbo].[PropertyValues]
+    ([PropertyTypeId]);
+GO
+
+-- Creating foreign key on [Files_Id] in table 'FilePropertyValue'
+ALTER TABLE [dbo].[FilePropertyValue]
+ADD CONSTRAINT [FK_FilePropertyValue_File]
     FOREIGN KEY ([Files_Id])
     REFERENCES [dbo].[Files]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [CharacteristicValues_Id] in table 'FileCharacteristicValue'
-ALTER TABLE [dbo].[FileCharacteristicValue]
-ADD CONSTRAINT [FK_FileCharacteristicValue_CharacteristicValue]
-    FOREIGN KEY ([CharacteristicValues_Id])
-    REFERENCES [dbo].[CharacteristicValues]
+-- Creating foreign key on [PropertyValues_Id] in table 'FilePropertyValue'
+ALTER TABLE [dbo].[FilePropertyValue]
+ADD CONSTRAINT [FK_FilePropertyValue_PropertyValue]
+    FOREIGN KEY ([PropertyValues_Id])
+    REFERENCES [dbo].[PropertyValues]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_FileCharacteristicValue_CharacteristicValue'
-CREATE INDEX [IX_FK_FileCharacteristicValue_CharacteristicValue]
-ON [dbo].[FileCharacteristicValue]
-    ([CharacteristicValues_Id]);
-GO
-
--- Creating foreign key on [CharacteristicTypeId] in table 'CharacteristicValues'
-ALTER TABLE [dbo].[CharacteristicValues]
-ADD CONSTRAINT [FK_CharacteristicTypeCharacteristicValue]
-    FOREIGN KEY ([CharacteristicTypeId])
-    REFERENCES [dbo].[CharacteristicTypes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CharacteristicTypeCharacteristicValue'
-CREATE INDEX [IX_FK_CharacteristicTypeCharacteristicValue]
-ON [dbo].[CharacteristicValues]
-    ([CharacteristicTypeId]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_FilePropertyValue_PropertyValue'
+CREATE INDEX [IX_FK_FilePropertyValue_PropertyValue]
+ON [dbo].[FilePropertyValue]
+    ([PropertyValues_Id]);
 GO
 
 -- --------------------------------------------------

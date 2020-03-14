@@ -11,5 +11,6 @@ namespace MyPhotosApi.Api
     {
         public string Path { get; set; }
         public IList<Guid> PropertyValues { get; set; }
+        public IDictionary<Guid,IList<string>> NewPropertyValues { get; set; }
     }
 }

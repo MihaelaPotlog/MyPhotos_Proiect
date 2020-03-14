@@ -8,6 +8,7 @@ namespace MyPhotosApi.Api
 {
     public interface IFileService
     {
-
+        Task<string> LoadFile(FileDto fileDto);
+        IList<string> GetDirectoryPhotosVideos(string directoryPath);
     }
 }

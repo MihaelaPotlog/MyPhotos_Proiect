@@ -53,16 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Constants\ErrorMessages.cs" />
     <Compile Include="Api\Constants\FileType.cs" />
+    <Compile Include="Api\Constants\MediaFileExtensions.cs" />
     <Compile Include="Api\DTOs\FileDto.cs" />
     <Compile Include="Api\Interfaces\IMyPhotosService.cs" />
+    <Compile Include="Api\Interfaces\IPropertyValueService.cs" />
     <Compile Include="Api\MappingDomainToDto\FileProfile.cs" />
     <Compile Include="Api\MyPhotosService.cs" />
     <Compile Include="Api\PropertyTypeService.cs" />
     <Compile Include="Api\FileService.cs" />
     <Compile Include="Api\Interfaces\IPropertyTypeService.cs" />
     <Compile Include="Api\Interfaces\IFileService.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Api\PropertyValueService.cs" />
     <Compile Include="File.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>

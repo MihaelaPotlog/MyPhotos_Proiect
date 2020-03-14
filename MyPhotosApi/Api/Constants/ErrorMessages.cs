@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPhotosApi
+namespace MyPhotosApi.Api.Constants
 {
-    public class Class1
+    static class ErrorMessages
     {
+        public static string IsNotMediaFile = "Is not Media file";
+
     }
 }

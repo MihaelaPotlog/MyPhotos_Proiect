@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotosApi", "MyPhotosApi\MyPhotosApi.csproj", "{F410D9AD-497D-4B52-BD65-EFEAF29967A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{ACE1FE5B-B1B1-4062-AA21-E47F581F68A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F410D9AD-497D-4B52-BD65-EFEAF29967A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F410D9AD-497D-4B52-BD65-EFEAF29967A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F410D9AD-497D-4B52-BD65-EFEAF29967A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE1FE5B-B1B1-4062-AA21-E47F581F68A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE1FE5B-B1B1-4062-AA21-E47F581F68A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE1FE5B-B1B1-4062-AA21-E47F581F68A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE1FE5B-B1B1-4062-AA21-E47F581F68A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

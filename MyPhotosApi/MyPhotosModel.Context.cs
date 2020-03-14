@@ -25,8 +25,8 @@ namespace MyPhotosApi
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<File> Files { get; set; }
-        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<PropertyValue> PropertyValues { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+        public virtual DbSet<MediaFile> MediaFiles { get; set; }
     }
 }

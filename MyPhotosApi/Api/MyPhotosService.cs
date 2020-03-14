@@ -22,27 +22,27 @@ namespace MyPhotosApi.Api.Interfaces
         }
         public void TryThings()
         {
-            File newFile = new File()
+            MediaFile newFile = new MediaFile()
             {
                 Name = "Hello",
                 Path = "hello",
                 Date = DateTime.Now,
                 Erased = false,
-                Type = false,
-                Id = Guid.NewGuid()
+                Type = false
+                
             };
-            context.Files.Add(newFile);
+            context.MediaFiles.Add(newFile);
             PropertyType newPropertyType = new PropertyType()
             {
-                Name = "LOCURI",
-                Id = Guid.NewGuid()
+                Name = "LOCURI"
+                
             };
             context.PropertyTypes.Add(newPropertyType);
             PropertyValue newPropertyValue = new PropertyValue()
             {
                 Value = "Iasi",
-                PropertyTypeId = newPropertyType.Id,
-                Id = Guid.NewGuid()
+                PropertyTypeId = newPropertyType.Id
+                
             };
             context.PropertyValues.Add(newPropertyValue);
             Console.WriteLine(newFile.Id);

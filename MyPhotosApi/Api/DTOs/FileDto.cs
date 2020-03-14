@@ -10,7 +10,7 @@ namespace MyPhotosApi.Api
     public class FileDto
     {
         public string Path { get; set; }
-        public IList<Guid> PropertyValues { get; set; }
-        public IDictionary<Guid,IList<string>> NewPropertyValues { get; set; }
+        public IList<int> PropertyValues { get; set; }
+        public IDictionary<int,IList<string>> NewPropertyValues { get; set; }
     }
 }

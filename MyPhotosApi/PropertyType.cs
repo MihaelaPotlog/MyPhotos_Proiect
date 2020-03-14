@@ -20,7 +20,7 @@ namespace MyPhotosApi
             this.PropertyValues = new HashSet<PropertyValue>();
         }
     
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

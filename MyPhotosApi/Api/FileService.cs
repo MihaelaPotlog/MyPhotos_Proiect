@@ -23,9 +23,9 @@ namespace MyPhotosApi.Api
 
         public async Task<string> LoadFile(FileDto fileDto)
         {
-            File searchedFile = _myPhotosContext.Files.FirstOrDefault(file => file.Path == fileDto.Path);
+            MediaFile searchedFile = _myPhotosContext.MediaFiles.FirstOrDefault(file => file.Path == fileDto.Path);
 
-            if (searchedFile == default(File) && System.IO.File.Exists(fileDto.Path))
+            if (searchedFile == default(MediaFile) && System.IO.File.Exists(fileDto.Path))
             {
                 string extension = Path.GetExtension(fileDto.Path);
 
@@ -45,7 +45,7 @@ namespace MyPhotosApi.Api
                 else
                     return ErrorMessages.IsNotMediaFile;
 
-                File createdFile = new File()
+                MediaFile createdFile = new MediaFile()
                 {
                     Path = fileDto.Path,
                     Name = Path.GetFileNameWithoutExtension(fileDto.Path),
@@ -65,7 +65,7 @@ namespace MyPhotosApi.Api
                     await _propertyValueService.AddManyPropertyValues(propertyTypeValues.Key, propertyTypeValues.Value);
                 }
 
-                _myPhotosContext.Files.Add(createdFile);
+                _myPhotosContext.MediaFiles.Add(createdFile);
                 await _myPhotosContext.SaveChangesAsync();
                 return "yes";
             }

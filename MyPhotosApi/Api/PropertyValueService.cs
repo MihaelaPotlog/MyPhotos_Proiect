@@ -18,7 +18,7 @@ namespace MyPhotosApi.Api
 
        
 
-        public async Task AddOnePropertyValue(Guid propertyTypeId, string value)
+        public async Task AddOnePropertyValue(int propertyTypeId, string value)
         {
             PropertyValue newPropertyValue = new PropertyValue()
             {
@@ -29,7 +29,7 @@ namespace MyPhotosApi.Api
             _myPhotosContext.PropertyValues.Add(newPropertyValue);
             await _myPhotosContext.SaveChangesAsync();
         }
-        public async Task AddManyPropertyValues(Guid propertyTypeId, IList<string> propertyValues)
+        public async Task AddManyPropertyValues(int propertyTypeId, IList<string> propertyValues)
         {
             foreach (var propertyValue in propertyValues)
             {

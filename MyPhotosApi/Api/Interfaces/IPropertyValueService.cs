@@ -8,8 +8,8 @@ namespace MyPhotosApi.Api.Interfaces
 {
     internal interface IPropertyValueService
     {
-        Task AddOnePropertyValue(Guid propertyTypeId, string value);
-        Task AddManyPropertyValues(Guid propertyTypeId, IList<string> propertyValues);
+        Task AddOnePropertyValue(int propertyTypeId, string value);
+        Task AddManyPropertyValues(int propertyTypeId, IList<string> propertyValues);
 
     }
 }

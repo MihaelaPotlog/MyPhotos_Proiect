@@ -12,15 +12,15 @@ namespace MyPhotosApi
     using System;
     using System.Collections.Generic;
     
-    public partial class File
+    public partial class MediaFile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public File()
+        public MediaFile()
         {
             this.PropertyValues = new HashSet<PropertyValue>();
         }
     
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string Path { get; set; }
         public string Name { get; set; }
         public bool Type { get; set; }

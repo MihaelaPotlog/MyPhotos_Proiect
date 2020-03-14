@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="047b48cb4c254cb89552aca2530609c8" Name="Diagram1" DisplayType="true" >
-        <EntityTypeShape EntityType="MyPhotosModel.File" Width="1.5" PointX="2.125" PointY="0.875" />
-        <EntityTypeShape EntityType="MyPhotosModel.PropertyType" Width="1.5" PointX="7.375" PointY="1" />
-        <EntityTypeShape EntityType="MyPhotosModel.PropertyValue" Width="2" PointX="7.375" PointY="4" />
+      <Diagram DiagramId="6ccb284818cb48b3beb5ac5b6476535e" Name="Diagram1" DisplayType="true" >
+        <EntityTypeShape EntityType="MyPhotosModel.PropertyValue" Width="1.875" PointX="6.75" PointY="3.625" />
+        <EntityTypeShape EntityType="MyPhotosModel.PropertyType" Width="1.5" PointX="7" PointY="0.5" />
+        <EntityTypeShape EntityType="MyPhotosModel.MediaFile" Width="1.5" PointX="2.375" PointY="0.5" />
+        <AssociationConnector Association="MyPhotosModel.MediaFilePropertyValue" />
         <AssociationConnector Association="MyPhotosModel.PropertyTypePropertyValue" />
-        <AssociationConnector Association="MyPhotosModel.FilePropertyValue" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

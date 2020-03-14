@@ -66,7 +66,7 @@
     <Compile Include="Api\Interfaces\IPropertyTypeService.cs" />
     <Compile Include="Api\Interfaces\IFileService.cs" />
     <Compile Include="Api\PropertyValueService.cs" />
-    <Compile Include="File.cs">
+    <Compile Include="MediaFile.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MyPhotosModel.Context.cs">
@@ -119,6 +119,5 @@
       <DependentUpon>MyPhotosModel.edmx</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

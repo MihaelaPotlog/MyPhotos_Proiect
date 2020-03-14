@@ -17,15 +17,15 @@ namespace MyPhotosApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PropertyValue()
         {
-            this.Files = new HashSet<File>();
+            this.MediaFiles = new HashSet<MediaFile>();
         }
     
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string Value { get; set; }
-        public System.Guid PropertyTypeId { get; set; }
+        public int PropertyTypeId { get; set; }
     
-        public virtual PropertyType PropertyType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<MediaFile> MediaFiles { get; set; }
+        public virtual PropertyType PropertyType { get; set; }
     }
 }

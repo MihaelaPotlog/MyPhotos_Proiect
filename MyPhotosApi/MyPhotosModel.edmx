@@ -6,56 +6,56 @@
     <edmx:StorageModels>
     <Schema Namespace="MyPhotosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="MyPhotosModelStoreContainer">
-    <EntitySet Name="Files" EntityType="MyPhotosModel.Store.Files" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.Store.PropertyTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PropertyValues" EntityType="MyPhotosModel.Store.PropertyValues" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="FilePropertyValue" EntityType="MyPhotosModel.Store.FilePropertyValue" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.Store.PropertyTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MediaFiles" EntityType="MyPhotosModel.Store.MediaFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MediaFilePropertyValue" EntityType="MyPhotosModel.Store.MediaFilePropertyValue" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MediaFilePropertyValue_MediaFile" Association="MyPhotosModel.Store.FK_MediaFilePropertyValue_MediaFile">
+      <End Role="MediaFile" EntitySet="MediaFiles" />
+      <End Role="MediaFilePropertyValue" EntitySet="MediaFilePropertyValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MediaFilePropertyValue_PropertyValue" Association="MyPhotosModel.Store.FK_MediaFilePropertyValue_PropertyValue">
+      <End Role="PropertyValue" EntitySet="PropertyValues" />
+      <End Role="MediaFilePropertyValue" EntitySet="MediaFilePropertyValue" />
+    </AssociationSet>
     <AssociationSet Name="PropertyTypePropertyValue" Association="MyPhotosModel.Store.PropertyTypePropertyValue">
       <End Role="PropertyType" EntitySet="PropertyTypes" />
       <End Role="PropertyValue" EntitySet="PropertyValues" />
     </AssociationSet>
-    <AssociationSet Name="FK_FilePropertyValue_File" Association="MyPhotosModel.Store.FK_FilePropertyValue_File">
-      <End Role="File" EntitySet="Files" />
-      <End Role="FilePropertyValue" EntitySet="FilePropertyValue" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FilePropertyValue_PropertyValue" Association="MyPhotosModel.Store.FK_FilePropertyValue_PropertyValue">
-      <End Role="PropertyValue" EntitySet="PropertyValues" />
-      <End Role="FilePropertyValue" EntitySet="FilePropertyValue" />
-    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Files">
+  <EntityType Name="PropertyValues">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PropertyTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PropertyTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MediaFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="bit" Nullable="false" />
     <Property Name="Erased" Type="bit" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="PropertyTypes">
+  <EntityType Name="MediaFilePropertyValue">
     <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PropertyValues">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PropertyTypeId" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="FilePropertyValue">
-    <Key>
-      <PropertyRef Name="Files_Id" />
+      <PropertyRef Name="MediaFiles_Id" />
       <PropertyRef Name="PropertyValues_Id" />
     </Key>
-    <Property Name="Files_Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PropertyValues_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MediaFiles_Id" Type="int" Nullable="false" />
+    <Property Name="PropertyValues_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="PropertyTypePropertyValue">
     <End Role="PropertyType" Type="MyPhotosModel.Store.PropertyTypes" Multiplicity="1" />
@@ -69,26 +69,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FilePropertyValue_File">
-    <End Role="File" Type="MyPhotosModel.Store.Files" Multiplicity="1" />
-    <End Role="FilePropertyValue" Type="MyPhotosModel.Store.FilePropertyValue" Multiplicity="*" />
+  <Association Name="FK_MediaFilePropertyValue_MediaFile">
+    <End Role="MediaFile" Type="MyPhotosModel.Store.MediaFiles" Multiplicity="1" />
+    <End Role="MediaFilePropertyValue" Type="MyPhotosModel.Store.MediaFilePropertyValue" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="File">
+      <Principal Role="MediaFile">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="FilePropertyValue">
-        <PropertyRef Name="Files_Id" />
+      <Dependent Role="MediaFilePropertyValue">
+        <PropertyRef Name="MediaFiles_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FilePropertyValue_PropertyValue">
-    <End Role="FilePropertyValue" Type="MyPhotosModel.Store.FilePropertyValue" Multiplicity="*" />
+  <Association Name="FK_MediaFilePropertyValue_PropertyValue">
+    <End Role="MediaFilePropertyValue" Type="MyPhotosModel.Store.MediaFilePropertyValue" Multiplicity="*" />
     <End Role="PropertyValue" Type="MyPhotosModel.Store.PropertyValues" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="PropertyValue">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="FilePropertyValue">
+      <Dependent Role="MediaFilePropertyValue">
         <PropertyRef Name="PropertyValues_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -98,48 +98,52 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MyPhotosModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="MyPhotosContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Files" EntityType="MyPhotosModel.File" />
-          <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.PropertyType" />
           <EntitySet Name="PropertyValues" EntityType="MyPhotosModel.PropertyValue" />
+          <EntitySet Name="PropertyTypes" EntityType="MyPhotosModel.PropertyType" />
+          <EntitySet Name="MediaFiles" EntityType="MyPhotosModel.MediaFile" />
+          <AssociationSet Name="MediaFilePropertyValue" Association="MyPhotosModel.MediaFilePropertyValue">
+            <End Role="MediaFile" EntitySet="MediaFiles" />
+            <End Role="PropertyValue" EntitySet="PropertyValues" />
+          </AssociationSet>
           <AssociationSet Name="PropertyTypePropertyValue" Association="MyPhotosModel.PropertyTypePropertyValue">
             <End Role="PropertyType" EntitySet="PropertyTypes" />
             <End Role="PropertyValue" EntitySet="PropertyValues" />
           </AssociationSet>
-          <AssociationSet Name="FilePropertyValue" Association="MyPhotosModel.FilePropertyValue">
-            <End Role="File" EntitySet="Files" />
-            <End Role="PropertyValue" EntitySet="PropertyValues" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="File">
+        <EntityType Name="PropertyValue">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Path" Type="String" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Type" Type="Boolean" Nullable="false" />
-          <Property Name="Erased" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PropertyValues" Relationship="MyPhotosModel.FilePropertyValue" FromRole="File" ToRole="PropertyValue" />
-          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" Nullable="false" />
+          <NavigationProperty Name="MediaFiles" Relationship="MyPhotosModel.MediaFilePropertyValue" FromRole="PropertyValue" ToRole="MediaFile" />
+          <NavigationProperty Name="PropertyType" Relationship="MyPhotosModel.PropertyTypePropertyValue" FromRole="PropertyValue" ToRole="PropertyType" />
+          <Property Name="PropertyTypeId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="PropertyType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="PropertyValues" Relationship="MyPhotosModel.PropertyTypePropertyValue" FromRole="PropertyType" ToRole="PropertyValue" />
         </EntityType>
-        <EntityType Name="PropertyValue">
+        <EntityType Name="MediaFile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Value" Type="String" Nullable="false" />
-          <NavigationProperty Name="PropertyType" Relationship="MyPhotosModel.PropertyTypePropertyValue" FromRole="PropertyValue" ToRole="PropertyType" />
-          <Property Name="PropertyTypeId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Files" Relationship="MyPhotosModel.FilePropertyValue" FromRole="PropertyValue" ToRole="File" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PropertyValues" Relationship="MyPhotosModel.MediaFilePropertyValue" FromRole="MediaFile" ToRole="PropertyValue" />
+          <Property Name="Path" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Type" Type="Boolean" Nullable="false" />
+          <Property Name="Erased" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
         </EntityType>
+        <Association Name="MediaFilePropertyValue">
+          <End Type="MyPhotosModel.MediaFile" Role="MediaFile" Multiplicity="*" />
+          <End Type="MyPhotosModel.PropertyValue" Role="PropertyValue" Multiplicity="*" />
+        </Association>
         <Association Name="PropertyTypePropertyValue">
           <End Type="MyPhotosModel.PropertyType" Role="PropertyType" Multiplicity="1" />
           <End Type="MyPhotosModel.PropertyValue" Role="PropertyValue" Multiplicity="*" />
@@ -152,25 +156,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FilePropertyValue">
-          <End Type="MyPhotosModel.File" Role="File" Multiplicity="*" />
-          <End Type="MyPhotosModel.PropertyValue" Role="PropertyValue" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MyPhotosModelStoreContainer" CdmEntityContainer="MyPhotosContext">
-    <EntitySetMapping Name="Files">
-      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.File)">
-        <MappingFragment StoreEntitySet="Files">
+    <EntitySetMapping Name="PropertyValues">
+      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.PropertyValue)">
+        <MappingFragment StoreEntitySet="PropertyValues">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Path" ColumnName="Path" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Erased" ColumnName="Erased" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="PropertyTypeId" ColumnName="PropertyTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -182,18 +179,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PropertyValues">
-      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.PropertyValue)">
-        <MappingFragment StoreEntitySet="PropertyValues">
+    <EntitySetMapping Name="MediaFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(MyPhotosModel.MediaFile)">
+        <MappingFragment StoreEntitySet="MediaFiles">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="PropertyTypeId" ColumnName="PropertyTypeId" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Erased" ColumnName="Erased" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="FilePropertyValue" TypeName="MyPhotosModel.FilePropertyValue" StoreEntitySet="FilePropertyValue">
-      <EndProperty Name="File">
-        <ScalarProperty Name="Id" ColumnName="Files_Id" />
+    <AssociationSetMapping Name="MediaFilePropertyValue" TypeName="MyPhotosModel.MediaFilePropertyValue" StoreEntitySet="MediaFilePropertyValue">
+      <EndProperty Name="MediaFile">
+        <ScalarProperty Name="Id" ColumnName="MediaFiles_Id" />
       </EndProperty>
       <EndProperty Name="PropertyValue">
         <ScalarProperty Name="Id" ColumnName="PropertyValues_Id" />

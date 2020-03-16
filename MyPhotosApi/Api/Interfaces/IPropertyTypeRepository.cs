@@ -5,10 +5,8 @@ namespace MyPhotosApi.Api
 {
     public interface IPropertyTypeRepository
     {
-        Task<bool> AddPropertyType(string name);
         Task<PropertyType> Get(int id);
+        Task<bool> AddPropertyType(string name);
         IList<PropertyType> GetAll();
-        IList<PropertyType> GetPropertyTypesWithValues();
-
     }
 }

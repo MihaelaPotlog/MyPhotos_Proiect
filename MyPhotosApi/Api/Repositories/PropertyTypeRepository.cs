@@ -38,9 +38,5 @@ namespace MyPhotosApi.Api
             return _myPhotosContext.PropertyTypes.ToList();
         }
 
-        public IList<PropertyType> GetPropertyTypesWithValues()
-        {
-            return _myPhotosContext.PropertyTypes.Include("PropertyValues").ToList();
-        }
     }
 }

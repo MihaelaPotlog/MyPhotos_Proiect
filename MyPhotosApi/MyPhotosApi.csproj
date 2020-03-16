@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Constants\ErrorMessages.cs" />
-    <Compile Include="Api\Constants\FileType.cs" />
-    <Compile Include="Api\Constants\SupportedMediaFileExtensions.cs" />
-    <Compile Include="Api\Constants\Response.cs" />
+    <Compile Include="Api\Common\ErrorMessages.cs" />
+    <Compile Include="Api\Common\FileType.cs" />
+    <Compile Include="Api\Common\SupportedMediaFileExtensions.cs" />
+    <Compile Include="Api\Common\Response.cs" />
     <Compile Include="Api\DTOs\RequestDtos\CreateFileDto.cs" />
     <Compile Include="Api\DTOs\RequestDtos\ModifyFileDto.cs" />
     <Compile Include="Api\DTOs\ResponseDtos\FileDto.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Api\DTOs\ResponseDtos\PropertyTypeDto.cs" />
     <Compile Include="Api\DTOs\ResponseDtos\PropertyTypeValuesDto.cs" />
     <Compile Include="Api\DTOs\ResponseDtos\PropertyDto.cs" />
+    <Compile Include="Api\Interfaces\IMediaFileRepository.cs" />
     <Compile Include="Api\Interfaces\IPropertyTypeService.cs" />
     <Compile Include="Api\Interfaces\IPropertyValueRepository.cs" />
     <Compile Include="Api\MappingDomainToDto\FileProfile.cs" />

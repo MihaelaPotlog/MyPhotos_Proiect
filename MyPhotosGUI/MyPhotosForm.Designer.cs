@@ -1,6 +1,6 @@
 ﻿namespace MyPhotosGUI
 {
-    partial class Form1
+    partial class MyPhotosForm
     {
         /// <summary>
         /// Required designer variable.
@@ -57,11 +57,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.ViewAllButton = new System.Windows.Forms.Button();
+            this.DeletePhotoButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pictureBox.Location = new System.Drawing.Point(782, 12);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(653, 399);
@@ -101,12 +105,14 @@
             // 
             // FilesListView
             // 
+            this.FilesListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.FilesListView.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.FilesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NameColumn,
             this.PathColumn});
             this.FilesListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.FilesListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FilesListView.FullRowSelect = true;
             this.FilesListView.HideSelection = false;
             this.FilesListView.Location = new System.Drawing.Point(12, 317);
             this.FilesListView.Name = "FilesListView";
@@ -188,6 +194,7 @@
             // UploadPhotoButton
             // 
             this.UploadPhotoButton.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.UploadPhotoButton.Enabled = false;
             this.UploadPhotoButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UploadPhotoButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.UploadPhotoButton.Location = new System.Drawing.Point(1219, 807);
@@ -196,6 +203,7 @@
             this.UploadPhotoButton.TabIndex = 13;
             this.UploadPhotoButton.Text = "Upload Photo";
             this.UploadPhotoButton.UseVisualStyleBackColor = false;
+            this.UploadPhotoButton.Visible = false;
             this.UploadPhotoButton.Click += new System.EventHandler(this.UploadPhotoButton_Click);
             // 
             // OpenFileButton
@@ -305,6 +313,7 @@
             // ModifyButton
             // 
             this.ModifyButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.ModifyButton.Enabled = false;
             this.ModifyButton.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModifyButton.ForeColor = System.Drawing.SystemColors.Control;
             this.ModifyButton.Location = new System.Drawing.Point(1219, 859);
@@ -313,6 +322,7 @@
             this.ModifyButton.TabIndex = 24;
             this.ModifyButton.Text = "Modify Photo";
             this.ModifyButton.UseVisualStyleBackColor = false;
+            this.ModifyButton.Visible = false;
             this.ModifyButton.Click += new System.EventHandler(this.ModifyButton_Click);
             // 
             // label3
@@ -346,11 +356,27 @@
             this.ViewAllButton.UseVisualStyleBackColor = false;
             this.ViewAllButton.Click += new System.EventHandler(this.ViewAllButton_Click);
             // 
-            // Form1
+            // DeletePhotoButton
+            // 
+            this.DeletePhotoButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DeletePhotoButton.Enabled = false;
+            this.DeletePhotoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeletePhotoButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.DeletePhotoButton.Location = new System.Drawing.Point(1219, 925);
+            this.DeletePhotoButton.Name = "DeletePhotoButton";
+            this.DeletePhotoButton.Size = new System.Drawing.Size(216, 47);
+            this.DeletePhotoButton.TabIndex = 28;
+            this.DeletePhotoButton.Text = "Delete Photo";
+            this.DeletePhotoButton.UseVisualStyleBackColor = false;
+            this.DeletePhotoButton.Visible = false;
+            this.DeletePhotoButton.Click += new System.EventHandler(this.DeletePhotoButton_Click);
+            // 
+            // MyPhotosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 953);
+            this.ClientSize = new System.Drawing.Size(1482, 1053);
+            this.Controls.Add(this.DeletePhotoButton);
             this.Controls.Add(this.ViewAllButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -374,8 +400,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TypeForFilterComboBox);
             this.Controls.Add(this.pictureBox);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Location = new System.Drawing.Point(0, 10);
+            this.Name = "MyPhotosForm";
+            this.Text = "MyPhotosForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -413,6 +440,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button ViewAllButton;
+        private System.Windows.Forms.Button DeletePhotoButton;
     }
 }
 

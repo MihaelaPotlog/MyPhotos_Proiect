@@ -13,8 +13,8 @@ namespace MyPhotosApi.Api
         Task<Response> LoadFile(CreateFileDto createFileDto);
         Task<Response> ModifyMediaFile(ModifyFileDto dto);
         IList<string> GetDirectoryPhotosVideos(string directoryPath);
-        Task<Response> AddPropertyValueToMediaFile(int mediaFileId, int propertyValueId);
         IList<FileDto> GetFilteredMediaFiles(FilterFilesDto dto);
+        Task Delete(int id);
 
     }
 }

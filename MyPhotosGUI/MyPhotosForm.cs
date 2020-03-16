@@ -11,44 +11,40 @@ using MyPhotosApi.Api.DTOs.RequestDtos;
 
 namespace MyPhotosGUI
 {
-    public partial class Form1 : Form
+    public partial class MyPhotosForm : Form
     {
-        public MyPhotosApi.Api.Interfaces.MyPhotosApi MyPhotosApi { get; set; }
+        private MyPhotosApi.Api.Interfaces.MyPhotosApi _myPhotosApi;
         private CreateFileDto _createMediaFileDto;
         private ModifyFileDto _modifyFileDto;
-        private int _mode;
-
-
+        
         public IDictionary<int, PropertyTypeDto> ComboBoxPropertyTypeDtos { get; set; }
         private IList<FileDto> _filteredFiles;
-        public Form1()
+        public MyPhotosForm()
         {
             InitializeComponent();
-            MyPhotosApi = new MyPhotosApi.Api.Interfaces.MyPhotosApi();
+            _myPhotosApi = new MyPhotosApi.Api.Interfaces.MyPhotosApi();
             ComboBoxPropertyTypeDtos = new Dictionary<int, PropertyTypeDto>();
-
             _createMediaFileDto = new CreateFileDto();
-            FilesListView.Activation = ItemActivation.OneClick;
-            FilesListView.FullRowSelect = true;
+            
+            InitializeGuiElements();
+        }
 
-            _filteredFiles = MyPhotosApi.MediaFileService.GetAll();
+        private void InitializeGuiElements()
+        {
+            _filteredFiles = _myPhotosApi.MediaFileService.GetAll();
             AddItemsToFilesListView();
-            var propertyTypes = MyPhotosApi.PropertyTypeService.GetAllPropertyTypesWithValues();
 
+            var propertyTypes = _myPhotosApi.PropertyTypeService.GetAllPropertyTypesWithValues();
             TypeForFilterComboBox.Items.AddRange(propertyTypes.Cast<object>().ToArray());
 
 
-            var propertiesTypes = MyPhotosApi.PropertyTypeService.GetAllPropertiesTypes();
+            var propertiesTypes = _myPhotosApi.PropertyTypeService.GetAllPropertiesTypes();
 
-            PropertyTypeComboBox.Items.Clear();
-            PropertiesListView.Items.Clear();
-            ComboBoxPropertyTypeDtos.Clear();
             foreach (var propertyType in propertiesTypes)
             {
                 int id = PropertyTypeComboBox.Items.Add(propertyType.Name);
                 ComboBoxPropertyTypeDtos.Add(id, propertyType);
             }
-
         }
 
         private string GetOpenFileDialogFilter()
@@ -65,26 +61,26 @@ namespace MyPhotosGUI
             return filter.Substring(0, filter.Length - 1);
         }
 
+
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = "C:\\Users\\mihaela\\Desktop\\movie photos";
             openFileDialog.Title = "Add new Media file";
             openFileDialog.Filter = GetOpenFileDialogFilter();
 
-            _mode = Mode.Upload;
-
 
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 EnableButton(UploadPhotoButton);
                 DisableButton(ModifyButton);
+                DisableButton(DeletePhotoButton);
+
                 pictureBox.Image = Image.FromFile(openFileDialog.FileName);
                 _createMediaFileDto = new CreateFileDto()
                 {
                     Path = openFileDialog.FileName
                 };
             }
-
         }
 
 
@@ -110,14 +106,18 @@ namespace MyPhotosGUI
 
         private void UploadPhotoButton_Click(object sender, EventArgs e)
         {
-            MyPhotosApi.MediaFileService.LoadFile(_createMediaFileDto);
+            _myPhotosApi.MediaFileService.LoadFile(_createMediaFileDto);
+
+            TypeForFilterComboBox.Items.Clear();
+            var propertyTypes = _myPhotosApi.PropertyTypeService.GetAllPropertyTypesWithValues();
+            TypeForFilterComboBox.Items.AddRange(propertyTypes.Cast<object>().ToArray());
         }
 
 
 
         private void AddItemsToFilesListView()
         {
-            FilesListView.Items.Clear();
+            
             var imageList = new ImageList();
             imageList.ImageSize = new Size(60,55);
 
@@ -154,7 +154,7 @@ namespace MyPhotosGUI
                 PropertyValue = ValueForFilterComboBox.SelectedItem.ToString()
             };
 
-            _filteredFiles = MyPhotosApi.MediaFileService.GetFilteredMediaFiles(dto);
+            _filteredFiles = _myPhotosApi.MediaFileService.GetFilteredMediaFiles(dto);
             AddItemsToFilesListView();
         }
 
@@ -179,6 +179,7 @@ namespace MyPhotosGUI
         private void FilesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             EnableButton(ModifyButton);
+            EnableButton(DeletePhotoButton);
             DisableButton(UploadPhotoButton);
             PropertiesListView.Items.Clear();
 
@@ -207,10 +208,33 @@ namespace MyPhotosGUI
             }
         }
 
-        private void AddPropertyTypeButton_Click(object sender, EventArgs e)
+        private async void AddPropertyTypeButton_Click(object sender, EventArgs e)
         {
-            MyPhotosApi.PropertyTypeService.AddPropertyType(AddPropertyTypeTextBox.Text);
+            await _myPhotosApi.PropertyTypeService.AddPropertyType(AddPropertyTypeTextBox.Text);
+            RefreshFilterComboBox();
+            RefreshPropertyTypeComboBox();
 
+        }
+
+        private void RefreshFilterComboBox()
+        {
+            TypeForFilterComboBox.Items.Clear();
+            var propertyTypes = _myPhotosApi.PropertyTypeService.GetAllPropertyTypesWithValues();
+            TypeForFilterComboBox.Items.AddRange(propertyTypes.Cast<object>().ToArray());
+        }
+
+        private void RefreshPropertyTypeComboBox()
+        {
+            PropertyTypeComboBox.Items.Clear();
+            ComboBoxPropertyTypeDtos.Clear();
+
+            var propertiesTypes = _myPhotosApi.PropertyTypeService.GetAllPropertiesTypes();
+
+            foreach (var propertyType in propertiesTypes)
+            {
+                int id = PropertyTypeComboBox.Items.Add(propertyType.Name);
+                ComboBoxPropertyTypeDtos.Add(id, propertyType);
+            }
         }
 
         private void DeletePropertiesButton_Click(object sender, EventArgs e)
@@ -218,9 +242,7 @@ namespace MyPhotosGUI
             if (PropertiesListView.SelectedItems.Count != 0)
             {
                 var selectedItem = PropertiesListView.SelectedItems[0];
-                PropertyTypeLabel.Text = selectedItem.SubItems[1].Tag.ToString();
-
-
+                
                 PropertiesListView.Items.RemoveAt(selectedItem.Index);
                 if (selectedItem.SubItems[1].Tag.ToString() == "old")
                 {
@@ -236,22 +258,28 @@ namespace MyPhotosGUI
             {
                 if (propertyItem.SubItems[1].Tag.ToString() == "new")
                 {
-                    ;
-
                     var propertyTypeId = Int32.Parse(propertyItem.Tag.ToString());
                     _modifyFileDto.AddedPropertiesInfo.Add(propertyTypeId, propertyItem.SubItems[1].Text);
-                    PropertyTypeLabel.Text = propertyItem.Tag.ToString() + propertyItem.SubItems[1].Text;
                 }
-
             }
 
-            await MyPhotosApi.MediaFileService.ModifyMediaFile(_modifyFileDto);
+            await _myPhotosApi.MediaFileService.ModifyMediaFile(_modifyFileDto);
+
+            RefreshFilterComboBox();
         }
 
         private void ViewAllButton_Click(object sender, EventArgs e)
         {
-            _filteredFiles = MyPhotosApi.MediaFileService.GetAll();
+            FilesListView.Items.Clear();
+            _filteredFiles = _myPhotosApi.MediaFileService.GetAll();
             AddItemsToFilesListView();
+        }
+
+        private void DeletePhotoButton_Click(object sender, EventArgs e)
+        {
+            _myPhotosApi.MediaFileService.Delete(_modifyFileDto.FileId);
+            var selectedIndex = FilesListView.SelectedItems[0].Index;
+            FilesListView.Items.RemoveAt(selectedIndex);
         }
     }
 }

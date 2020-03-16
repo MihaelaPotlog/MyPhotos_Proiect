@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyPhotosApi.Api.Interfaces;
 
 namespace MyPhotosApi.Api.Repositories
 {
-    class MediaFileRepository
+    class MediaFileRepository:IMediaFileRepository
     {
         private MyPhotosContext _myPhotosContext;
 
@@ -18,9 +19,18 @@ namespace MyPhotosApi.Api.Repositories
             return await _myPhotosContext.MediaFiles.FindAsync(id);
         }
 
+        public async Task Delete(int id)
+        {
+            var mediaFile = await _myPhotosContext.MediaFiles.FindAsync(id);
+            if (mediaFile != null)
+            {
+
+            }
+        }
+
         public IList<MediaFile> GetAll()
         {
-            return _myPhotosContext.MediaFiles.ToList();
+            return _myPhotosContext.MediaFiles.Where(file=> file.Erased == false).ToList();
         }
 
         public async Task Update()
@@ -36,7 +46,7 @@ namespace MyPhotosApi.Api.Repositories
 
         public MediaFile GetByPath(string path)
         {
-            return _myPhotosContext.MediaFiles.FirstOrDefault(file => file.Path == path);
+            return _myPhotosContext.MediaFiles.FirstOrDefault(file => file.Path == path && file.Erased == false);
         }
 
         public IList<MediaFile> FindManyByProperty(int propertyTypeId, string propertyValue)
@@ -44,7 +54,7 @@ namespace MyPhotosApi.Api.Repositories
             return _myPhotosContext.MediaFiles
                 .Where(file => file.PropertyValues
                                    .FirstOrDefault(elem => elem.PropertyTypeId == propertyTypeId &&
-                                                                     elem.Value == propertyValue) != default(PropertyValue)).ToList();
+                                                                     elem.Value == propertyValue) != default(PropertyValue) && file.Erased == false).ToList();
             
         }
     }

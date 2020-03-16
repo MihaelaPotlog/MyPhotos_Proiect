@@ -37,7 +37,7 @@ namespace MyPhotosApi.Services
                 return new Response(true, "Succeeded");
             else
             {
-                return new Response(false, "The property type is already added");
+                return new Response(false, ErrorMessages.PropertyTypeIsAlreadyAdded);
             }
         }
         

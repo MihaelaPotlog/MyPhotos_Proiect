@@ -36,29 +36,5 @@ namespace MyPhotosApi.Api
                                                                                    && propertyValue.PropertyTypeId == propertyTypeId);
 
         }
-        public async Task AddOnePropertyValue(int propertyTypeId, string value)
-        {
-            PropertyValue newPropertyValue = new PropertyValue()
-            {
-                PropertyTypeId = propertyTypeId,
-                Value = value
-            };
-
-            _myPhotosContext.PropertyValues.Add(newPropertyValue);
-            await _myPhotosContext.SaveChangesAsync();
-        }
-        public async Task AddManyPropertyValues(int propertyTypeId, IList<string> propertyValues)
-        {
-            foreach (var propertyValue in propertyValues)
-            {
-                PropertyValue newPropertyValue = new PropertyValue()
-                {
-                    PropertyTypeId = propertyTypeId,
-                    Value = propertyValue
-                };
-                _myPhotosContext.PropertyValues.Add(newPropertyValue);
-            }
-            await _myPhotosContext.SaveChangesAsync();
-        }
     }
 }

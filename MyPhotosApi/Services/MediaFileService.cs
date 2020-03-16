@@ -27,11 +27,11 @@ namespace MyPhotosApi.Api
             MediaFile searchedFile = _myPhotosWrapper.MediaFiles.GetByPath(createFileDto.Path);
 
             if (System.IO.File.Exists(createFileDto.Path) == false)
-                return new Response(false, "The file does not exist");
+                return new Response(false, ErrorMessages.FileDoesNotExist);
 
             if (searchedFile != default(MediaFile))
             {
-                return new Response(false, "The file is already added");
+                return new Response(false, ErrorMessages.FileIsAlreadyAdded);
             }
 
             string extension = Path.GetExtension(createFileDto.Path);
@@ -112,28 +112,12 @@ namespace MyPhotosApi.Api
 
         }
 
-        public async Task<Response> AddPropertyValueToMediaFile(int mediaFileId, int propertyValueId)
-        {
-            MediaFile searchedMediaFile = await _myPhotosWrapper.MediaFiles.Get(mediaFileId);
-            if (searchedMediaFile == null)
-                return new Response(false, "The file does not exist");
-
-            PropertyValue searchedPropertyValue = await _myPhotosWrapper.PropertyValues.Get(propertyValueId);
-            if (searchedPropertyValue == null)
-                return new Response(false, "The property value does not exist");
-
-            searchedMediaFile.PropertyValues.Add(searchedPropertyValue);
-            await _myPhotosWrapper.MediaFiles.Update();
-
-            return new Response(true, "Succeeded");
-
-        }
 
         public async Task<Response> ModifyMediaFile(ModifyFileDto dto)
         {
             MediaFile modifiedMediaFile = await _myPhotosWrapper.MediaFiles.Get(dto.FileId);
             if (modifiedMediaFile == null)
-                return new Response(false, "The file does not exist");
+                return new Response(false, ErrorMessages.FileDoesNotExist);
 
             foreach (var addedPropertyInfo in dto.AddedPropertiesInfo)
             {
@@ -155,7 +139,7 @@ namespace MyPhotosApi.Api
 
                     await _myPhotosWrapper.PropertyValues.Add(newPropertyValue);
                     modifiedMediaFile.PropertyValues.Add(newPropertyValue);
-                    _myPhotosWrapper.MediaFiles.Update();
+                    await _myPhotosWrapper.MediaFiles.Update();
 
                 }
             }
@@ -181,6 +165,11 @@ namespace MyPhotosApi.Api
         public IList<FileDto> GetAll()
         {
             return _mapper.Map<IList<FileDto>>(_myPhotosWrapper.MediaFiles.GetAll());
+        }
+
+        public async Task Delete(int id)
+        {
+            await _myPhotosWrapper.MediaFiles.Delete(id);
         }
 
     }

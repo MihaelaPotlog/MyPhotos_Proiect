@@ -6,14 +6,12 @@ namespace MyPhotosApi.Api.Interfaces
 {
     public class MyPhotosApi 
     {
-        public IMediaFileService MediaFileService { get; private set; }
-        public IPropertyTypeService PropertyTypeService { get; private set; }
+        public IMediaFileService MediaFileService { get; }
+        public IPropertyTypeService PropertyTypeService { get; }
         
-        
-
         public MyPhotosApi()
         {
-            // IMapper mapper = new AutoMapper();
+            
             MyPhotosContext myPhotosContext = new MyPhotosContext();
             MediaFileRepository mediaFileRepository = new MediaFileRepository(myPhotosContext);
             PropertyValueRepository propertyValueRepository = new PropertyValueRepository(myPhotosContext);
@@ -24,7 +22,6 @@ namespace MyPhotosApi.Api.Interfaces
             MediaFileService = new MediaFileService(myPhotosWrapper, mapper);
             PropertyTypeService = new PropertyTypeService(myPhotosWrapper, mapper);
         }
-       
     }
 }
 

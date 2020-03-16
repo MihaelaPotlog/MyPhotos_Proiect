@@ -55,17 +55,30 @@
   <ItemGroup>
     <Compile Include="Api\Constants\ErrorMessages.cs" />
     <Compile Include="Api\Constants\FileType.cs" />
-    <Compile Include="Api\Constants\MediaFileExtensions.cs" />
-    <Compile Include="Api\DTOs\FileDto.cs" />
-    <Compile Include="Api\Interfaces\IMyPhotosService.cs" />
-    <Compile Include="Api\Interfaces\IPropertyValueService.cs" />
-    <Compile Include="Api\MappingDomainToDto\FileProfile.cs" />
-    <Compile Include="Api\MyPhotosService.cs" />
-    <Compile Include="Api\PropertyTypeService.cs" />
-    <Compile Include="Api\FileService.cs" />
+    <Compile Include="Api\Constants\SupportedMediaFileExtensions.cs" />
+    <Compile Include="Api\Constants\Response.cs" />
+    <Compile Include="Api\DTOs\RequestDtos\CreateFileDto.cs" />
+    <Compile Include="Api\DTOs\RequestDtos\ModifyFileDto.cs" />
+    <Compile Include="Api\DTOs\ResponseDtos\FileDto.cs" />
+    <Compile Include="Api\DTOs\RequestDtos\FilterFilesDto.cs" />
+    <Compile Include="Api\DTOs\ResponseDtos\PropertyTypeDto.cs" />
+    <Compile Include="Api\DTOs\ResponseDtos\PropertyTypeValuesDto.cs" />
+    <Compile Include="Api\DTOs\ResponseDtos\PropertyDto.cs" />
     <Compile Include="Api\Interfaces\IPropertyTypeService.cs" />
-    <Compile Include="Api\Interfaces\IFileService.cs" />
-    <Compile Include="Api\PropertyValueService.cs" />
+    <Compile Include="Api\Interfaces\IPropertyValueRepository.cs" />
+    <Compile Include="Api\MappingDomainToDto\FileProfile.cs" />
+    <Compile Include="Api\MappingDomainToDto\PropertyDtoProfile.cs" />
+    <Compile Include="Api\MappingDomainToDto\PropertyTypeToPropertyDtoProfile.cs" />
+    <Compile Include="Api\MappingDomainToDto\PropertyTypeValuesProfile.cs" />
+    <Compile Include="Api\MyPhotosApi.cs" />
+    <Compile Include="Api\Repositories\PropertyTypeRepository.cs" />
+    <Compile Include="Services\MediaFileService.cs" />
+    <Compile Include="Api\Interfaces\IPropertyTypeRepository.cs" />
+    <Compile Include="Api\Interfaces\IMediaFileService.cs" />
+    <Compile Include="Api\Repositories\MediaFileRepository.cs" />
+    <Compile Include="Api\Repositories\MyPhotosWrapper.cs" />
+    <Compile Include="Api\Repositories\PropertyValueRepository.cs" />
+    <Compile Include="AutomapperConfigure.cs" />
     <Compile Include="MediaFile.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
@@ -91,6 +104,7 @@
     <Compile Include="PropertyValue.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\PropertyTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -119,5 +133,6 @@
       <DependentUpon>MyPhotosModel.edmx</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

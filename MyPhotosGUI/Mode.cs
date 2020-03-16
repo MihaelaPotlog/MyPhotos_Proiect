@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPhotosApi.Api
+namespace MyPhotosGUI
 {
-    public interface IMyPhotosService
+    static class Mode
     {
+        public static int Modify = 0;
+        public static int Upload = 1;
+        
     }
 }

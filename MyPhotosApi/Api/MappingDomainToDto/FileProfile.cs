@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using MyPhotosApi.Api.DTOs;
 
 namespace MyPhotosApi.Api.MappingDomainToDto
 {
-    class FileProfile:Profile
+    public class FileProfile : Profile
     {
         public FileProfile()
         {
-            // CreateMap<File,FileDto>().For
+            CreateMap<MediaFile, FileDto>()
+                .ForMember(dest => dest.Properties, opt =>
+                    opt.MapFrom(src => src.PropertyValues));
         }
     }
 }

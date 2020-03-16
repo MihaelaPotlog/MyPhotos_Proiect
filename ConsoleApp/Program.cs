@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyPhotosApi;
-using MyPhotosApi.Api.Interfaces;
 
 namespace ConsoleApp
 {
@@ -12,9 +6,20 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var myPhotoService = new MyPhotosService();
-            // myPhotoService.FileService.GetDirectoryPhotosVideos("C:\\Users\\mihaela\\Desktop\\movie photos");
-            myPhotoService.TryThings();
+            var myPhotoService = new MyPhotosApi.Api.Interfaces.MyPhotosApi();
+            // myPhotoService.MediaFileService.GetDirectoryPhotosVideos("C:\\Users\\mihaela\\Desktop\\movie photos");
+            var x = myPhotoService.PropertyTypeRepository.GetPropertyTypesWithValues();
+            foreach (var propertyType in x)
+            {
+                Console.WriteLine(propertyType.Name);
+                foreach (var value in  propertyType.PropertyValues)
+                {
+                    
+                    Console.WriteLine(value.Value);
+                }
+            }
+
+            Console.ReadKey();
         }
 
 

@@ -1,24 +1,19 @@
-﻿using MyPhotosApi.Api;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MyPhotosApi.Api;
 using MyPhotosApi.Api.Constants;
 using MyPhotosApi.Api.DTOs;
 using MyPhotosApi.Api.DTOs.RequestDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace WCF_Service
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class MediaFileService : IMediaFileService
+    public class MyPhotosService : IMyPhotosService
     {
-
         private MyPhotosApi.Api.Interfaces.MyPhotosApi _myPhotosApi;
-
-        public MediaFileService()
+        public MyPhotosService()
         {
             _myPhotosApi = new MyPhotosApi.Api.Interfaces.MyPhotosApi();
         }
@@ -51,6 +46,22 @@ namespace WCF_Service
         public Task<Response> ModifyMediaFile(ModifyFileDto dto)
         {
             return _myPhotosApi.MediaFileService.ModifyMediaFile(dto);
+        }
+
+
+        public Task<Response> AddPropertyType(string name)
+        {
+            return _myPhotosApi.PropertyTypeService.AddPropertyType(name);
+        }
+
+        public IList<PropertyTypeDto> GetAllPropertiesTypes()
+        {
+            return _myPhotosApi.PropertyTypeService.GetAllPropertiesTypes();
+        }
+
+        public IList<PropertyTypeValuesDto> GetAllPropertyTypesWithValues()
+        {
+            return _myPhotosApi.PropertyTypeService.GetAllPropertyTypesWithValues();
         }
     }
 }

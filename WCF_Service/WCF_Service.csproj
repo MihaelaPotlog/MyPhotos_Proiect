@@ -42,9 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyPhotosService.cs" />
     <Compile Include="ServiceInterfaces\IMyPhotosService.cs" />
-    <Compile Include="MediaFileService.cs" />
-    <Compile Include="PropertyTypeService.cs" />
     <Compile Include="ServiceInterfaces\IMediaFileService.cs" />
     <Compile Include="ServiceInterfaces\IPropertyTypeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

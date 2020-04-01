@@ -17,7 +17,7 @@ namespace HostWCF
         {
 
             Console.WriteLine("Lansare server WCF...");
-            ServiceHost host = new ServiceHost(typeof(MediaFileService),
+            ServiceHost host = new ServiceHost(typeof(MyPhotosService),
                 new Uri("http://localhost:8000/PC"));
 
             foreach (ServiceEndpoint se in host.Description.Endpoints)

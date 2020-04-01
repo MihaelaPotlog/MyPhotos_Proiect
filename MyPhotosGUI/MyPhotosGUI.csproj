@@ -63,7 +63,6 @@
     <Compile Include="MyPhotosForm.Designer.cs">
       <DependentUpon>MyPhotosForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MyPhotosForm.resx">

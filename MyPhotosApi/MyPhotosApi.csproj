@@ -73,13 +73,13 @@
     <Compile Include="Api\MappingDomainToDto\PropertyTypeValuesProfile.cs" />
     <Compile Include="Api\MyPhotosApi.cs" />
     <Compile Include="Api\Repositories\PropertyTypeRepository.cs" />
-    <Compile Include="Services\MediaFileService.cs" />
+    <Compile Include="Api\Services\MediaFileService.cs" />
     <Compile Include="Api\Interfaces\IPropertyTypeRepository.cs" />
     <Compile Include="Api\Interfaces\IMediaFileService.cs" />
     <Compile Include="Api\Repositories\MediaFileRepository.cs" />
     <Compile Include="Api\Repositories\MyPhotosWrapper.cs" />
     <Compile Include="Api\Repositories\PropertyValueRepository.cs" />
-    <Compile Include="AutomapperConfigure.cs" />
+    <Compile Include="Api\AutomapperConfigure.cs" />
     <Compile Include="MediaFile.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
@@ -105,7 +105,7 @@
     <Compile Include="PropertyValue.cs">
       <DependentUpon>MyPhotosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Services\PropertyTypeService.cs" />
+    <Compile Include="Api\Services\PropertyTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

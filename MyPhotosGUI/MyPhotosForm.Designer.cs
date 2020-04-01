@@ -273,9 +273,9 @@
             this.DeletePropertiesButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DeletePropertiesButton.Location = new System.Drawing.Point(782, 807);
             this.DeletePropertiesButton.Name = "DeletePropertiesButton";
-            this.DeletePropertiesButton.Size = new System.Drawing.Size(207, 46);
+            this.DeletePropertiesButton.Size = new System.Drawing.Size(254, 46);
             this.DeletePropertiesButton.TabIndex = 20;
-            this.DeletePropertiesButton.Text = "Delete Properties";
+            this.DeletePropertiesButton.Text = "Delete Selected Property";
             this.DeletePropertiesButton.UseVisualStyleBackColor = false;
             this.DeletePropertiesButton.Click += new System.EventHandler(this.DeletePropertiesButton_Click);
             // 

@@ -10,8 +10,9 @@
 namespace MyPhotosApi
 {
     using System;
+    using System.Runtime.Serialization;
     using System.Collections.Generic;
-    
+    [DataContract(IsReference = true)]
     public partial class MediaFile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,15 +20,21 @@ namespace MyPhotosApi
         {
             this.PropertyValues = new HashSet<PropertyValue>();
         }
-    
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Path { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public bool Type { get; set; }
+        [DataMember]
         public bool Erased { get; set; }
+        [DataMember]
         public System.DateTime Date { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [DataMember]
         public virtual ICollection<PropertyValue> PropertyValues { get; set; }
     }
 }

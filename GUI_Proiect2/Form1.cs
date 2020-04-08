@@ -16,5 +16,10 @@ namespace GUI_Proiect2
         {
             InitializeComponent();
         }
+
+        private void PropertyTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace MyPhotosApi.Api.DTOs
         
         private string PathField;
         
-        private MyPhotosApi.Api.DTOs.ResponseDtos.PropertyDto[] PropertiesField;
+        private System.Collections.Generic.List<MyPhotosApi.Api.DTOs.ResponseDtos.PropertyDto> PropertiesField;
         
         private bool TypeField;
         
@@ -98,7 +98,7 @@ namespace MyPhotosApi.Api.DTOs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MyPhotosApi.Api.DTOs.ResponseDtos.PropertyDto[] Properties
+        public System.Collections.Generic.List<MyPhotosApi.Api.DTOs.ResponseDtos.PropertyDto> Properties
         {
             get
             {
@@ -238,7 +238,7 @@ namespace MyPhotosApi.Api.DTOs
         
         private string NameField;
         
-        private string[] ValuesField;
+        private System.Collections.Generic.List<string> ValuesField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -279,7 +279,7 @@ namespace MyPhotosApi.Api.DTOs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] Values
+        public System.Collections.Generic.List<string> Values
         {
             get
             {
@@ -291,6 +291,16 @@ namespace MyPhotosApi.Api.DTOs
             }
         }
     }
+
+    //**** clasa adaugata de mine
+    partial class PropertyTypeValuesDto
+    {
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+    //*** 
 }
 namespace MyPhotosApi.Api.DTOs.ResponseDtos
 {
@@ -365,6 +375,7 @@ namespace MyPhotosApi.Api.DTOs.ResponseDtos
 }
 namespace MyPhotosApi.Api
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     
     
@@ -378,7 +389,7 @@ namespace MyPhotosApi.Api
         
         private string PathField;
         
-        private System.Collections.Generic.Dictionary<int, string[]> PropertiesField;
+        private System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<string>> PropertiesField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -406,7 +417,7 @@ namespace MyPhotosApi.Api
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.Dictionary<int, string[]> Properties
+        public System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<string>> Properties
         {
             get
             {
@@ -418,6 +429,17 @@ namespace MyPhotosApi.Api
             }
         }
     }
+
+    //*** ADDED CLASS BY ME
+    partial class CreateFileDto
+    {
+        public CreateFileDto()
+        {
+            Properties = new Dictionary<int, List<string>>();
+        }
+    }
+    //***
+
 }
 namespace MyPhotosApi.Api.Constants
 {
@@ -477,6 +499,7 @@ namespace MyPhotosApi.Api.Constants
 }
 namespace MyPhotosApi.Api.DTOs.RequestDtos
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     
     
@@ -545,6 +568,17 @@ namespace MyPhotosApi.Api.DTOs.RequestDtos
             }
         }
     }
+
+    //*** class added by me
+    partial class ModifyFileDto
+    {
+        public ModifyFileDto()
+        {
+            AddedPropertiesInfo = new Dictionary<int, string>();
+            DeletedPropertiesInfo = new Dictionary<int, string>();
+        }
+    }
+    //***
 }
 
 
@@ -554,10 +588,10 @@ public interface IMyPhotosService
 {
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetAll", ReplyAction="http://tempuri.org/IMediaFileService/GetAllResponse")]
-    MyPhotosApi.Api.DTOs.FileDto[] GetAll();
+    System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto> GetAll();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetAll", ReplyAction="http://tempuri.org/IMediaFileService/GetAllResponse")]
-    System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.FileDto[]> GetAllAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto>> GetAllAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/LoadFile", ReplyAction="http://tempuri.org/IMediaFileService/LoadFileResponse")]
     MyPhotosApi.Api.Constants.Response LoadFile(MyPhotosApi.Api.CreateFileDto createFileDto);
@@ -572,16 +606,16 @@ public interface IMyPhotosService
     System.Threading.Tasks.Task<MyPhotosApi.Api.Constants.Response> ModifyMediaFileAsync(MyPhotosApi.Api.DTOs.RequestDtos.ModifyFileDto dto);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetDirectoryPhotosVideos", ReplyAction="http://tempuri.org/IMediaFileService/GetDirectoryPhotosVideosResponse")]
-    string[] GetDirectoryPhotosVideos(string directoryPath);
+    System.Collections.Generic.List<string> GetDirectoryPhotosVideos(string directoryPath);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetDirectoryPhotosVideos", ReplyAction="http://tempuri.org/IMediaFileService/GetDirectoryPhotosVideosResponse")]
-    System.Threading.Tasks.Task<string[]> GetDirectoryPhotosVideosAsync(string directoryPath);
+    System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetDirectoryPhotosVideosAsync(string directoryPath);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetFilteredMediaFiles", ReplyAction="http://tempuri.org/IMediaFileService/GetFilteredMediaFilesResponse")]
-    MyPhotosApi.Api.DTOs.FileDto[] GetFilteredMediaFiles(MyPhotosApi.Api.DTOs.FilterFilesDto dto);
+    System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto> GetFilteredMediaFiles(MyPhotosApi.Api.DTOs.FilterFilesDto dto);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/GetFilteredMediaFiles", ReplyAction="http://tempuri.org/IMediaFileService/GetFilteredMediaFilesResponse")]
-    System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.FileDto[]> GetFilteredMediaFilesAsync(MyPhotosApi.Api.DTOs.FilterFilesDto dto);
+    System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto>> GetFilteredMediaFilesAsync(MyPhotosApi.Api.DTOs.FilterFilesDto dto);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMediaFileService/Delete", ReplyAction="http://tempuri.org/IMediaFileService/DeleteResponse")]
     void Delete(int id);
@@ -590,16 +624,16 @@ public interface IMyPhotosService
     System.Threading.Tasks.Task DeleteAsync(int id);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPropertyTypeService/GetAllPropertiesTypes", ReplyAction="http://tempuri.org/IPropertyTypeService/GetAllPropertiesTypesResponse")]
-    MyPhotosApi.Api.DTOs.PropertyTypeDto[] GetAllPropertiesTypes();
+    System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeDto> GetAllPropertiesTypes();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPropertyTypeService/GetAllPropertiesTypes", ReplyAction="http://tempuri.org/IPropertyTypeService/GetAllPropertiesTypesResponse")]
-    System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.PropertyTypeDto[]> GetAllPropertiesTypesAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeDto>> GetAllPropertiesTypesAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPropertyTypeService/GetAllPropertyTypesWithValues", ReplyAction="http://tempuri.org/IPropertyTypeService/GetAllPropertyTypesWithValuesResponse")]
-    MyPhotosApi.Api.DTOs.PropertyTypeValuesDto[] GetAllPropertyTypesWithValues();
+    System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto> GetAllPropertyTypesWithValues();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPropertyTypeService/GetAllPropertyTypesWithValues", ReplyAction="http://tempuri.org/IPropertyTypeService/GetAllPropertyTypesWithValuesResponse")]
-    System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto[]> GetAllPropertyTypesWithValuesAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto>> GetAllPropertyTypesWithValuesAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPropertyTypeService/AddPropertyType", ReplyAction="http://tempuri.org/IPropertyTypeService/AddPropertyTypeResponse")]
     MyPhotosApi.Api.Constants.Response AddPropertyType(string name);
@@ -642,12 +676,12 @@ public partial class MyPhotosServiceClient : System.ServiceModel.ClientBase<IMyP
     {
     }
     
-    public MyPhotosApi.Api.DTOs.FileDto[] GetAll()
+    public System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto> GetAll()
     {
         return base.Channel.GetAll();
     }
     
-    public System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.FileDto[]> GetAllAsync()
+    public System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto>> GetAllAsync()
     {
         return base.Channel.GetAllAsync();
     }
@@ -672,22 +706,22 @@ public partial class MyPhotosServiceClient : System.ServiceModel.ClientBase<IMyP
         return base.Channel.ModifyMediaFileAsync(dto);
     }
     
-    public string[] GetDirectoryPhotosVideos(string directoryPath)
+    public System.Collections.Generic.List<string> GetDirectoryPhotosVideos(string directoryPath)
     {
         return base.Channel.GetDirectoryPhotosVideos(directoryPath);
     }
     
-    public System.Threading.Tasks.Task<string[]> GetDirectoryPhotosVideosAsync(string directoryPath)
+    public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetDirectoryPhotosVideosAsync(string directoryPath)
     {
         return base.Channel.GetDirectoryPhotosVideosAsync(directoryPath);
     }
     
-    public MyPhotosApi.Api.DTOs.FileDto[] GetFilteredMediaFiles(MyPhotosApi.Api.DTOs.FilterFilesDto dto)
+    public System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto> GetFilteredMediaFiles(MyPhotosApi.Api.DTOs.FilterFilesDto dto)
     {
         return base.Channel.GetFilteredMediaFiles(dto);
     }
     
-    public System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.FileDto[]> GetFilteredMediaFilesAsync(MyPhotosApi.Api.DTOs.FilterFilesDto dto)
+    public System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.FileDto>> GetFilteredMediaFilesAsync(MyPhotosApi.Api.DTOs.FilterFilesDto dto)
     {
         return base.Channel.GetFilteredMediaFilesAsync(dto);
     }
@@ -702,22 +736,22 @@ public partial class MyPhotosServiceClient : System.ServiceModel.ClientBase<IMyP
         return base.Channel.DeleteAsync(id);
     }
     
-    public MyPhotosApi.Api.DTOs.PropertyTypeDto[] GetAllPropertiesTypes()
+    public System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeDto> GetAllPropertiesTypes()
     {
         return base.Channel.GetAllPropertiesTypes();
     }
     
-    public System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.PropertyTypeDto[]> GetAllPropertiesTypesAsync()
+    public System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeDto>> GetAllPropertiesTypesAsync()
     {
         return base.Channel.GetAllPropertiesTypesAsync();
     }
     
-    public MyPhotosApi.Api.DTOs.PropertyTypeValuesDto[] GetAllPropertyTypesWithValues()
+    public System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto> GetAllPropertyTypesWithValues()
     {
         return base.Channel.GetAllPropertyTypesWithValues();
     }
     
-    public System.Threading.Tasks.Task<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto[]> GetAllPropertyTypesWithValuesAsync()
+    public System.Threading.Tasks.Task<System.Collections.Generic.List<MyPhotosApi.Api.DTOs.PropertyTypeValuesDto>> GetAllPropertyTypesWithValuesAsync()
     {
         return base.Channel.GetAllPropertyTypesWithValuesAsync();
     }

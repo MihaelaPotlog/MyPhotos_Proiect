@@ -54,7 +54,8 @@
             this.UploadPhotoButton = new System.Windows.Forms.Button();
             this.ModifyButton = new System.Windows.Forms.Button();
             this.DeletePhotoButton = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.OpenFileButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,6 +94,7 @@
             this.TypeForFilterComboBox.Name = "TypeForFilterComboBox";
             this.TypeForFilterComboBox.Size = new System.Drawing.Size(175, 24);
             this.TypeForFilterComboBox.TabIndex = 3;
+            this.TypeForFilterComboBox.SelectionChangeCommitted += new System.EventHandler(this.TypeForFilterComboBox_SelectionChangeCommitted);
             // 
             // ValueForFilterComboBox
             // 
@@ -112,6 +114,7 @@
             this.FilterButton.TabIndex = 5;
             this.FilterButton.Text = "Filter";
             this.FilterButton.UseVisualStyleBackColor = false;
+            this.FilterButton.Click += new System.EventHandler(this.FilterButton_Click);
             // 
             // ViewAllButton
             // 
@@ -123,6 +126,7 @@
             this.ViewAllButton.TabIndex = 6;
             this.ViewAllButton.Text = "View all";
             this.ViewAllButton.UseVisualStyleBackColor = false;
+            this.ViewAllButton.Click += new System.EventHandler(this.ViewAllButton_Click);
             // 
             // FilesListView
             // 
@@ -140,6 +144,7 @@
             this.FilesListView.TabIndex = 7;
             this.FilesListView.UseCompatibleStateImageBehavior = false;
             this.FilesListView.View = System.Windows.Forms.View.Details;
+            this.FilesListView.SelectedIndexChanged += new System.EventHandler(this.FilesListView_SelectedIndexChanged);
             // 
             // NameColumn
             // 
@@ -180,6 +185,7 @@
             this.AddPropertyTypeButton.TabIndex = 10;
             this.AddPropertyTypeButton.Text = "Add Property";
             this.AddPropertyTypeButton.UseVisualStyleBackColor = false;
+            this.AddPropertyTypeButton.Click += new System.EventHandler(this.AddPropertyTypeButton_Click);
             // 
             // label5
             // 
@@ -239,6 +245,7 @@
             this.AddPropertyButton.TabIndex = 16;
             this.AddPropertyButton.Text = "Add";
             this.AddPropertyButton.UseVisualStyleBackColor = false;
+            this.AddPropertyButton.Click += new System.EventHandler(this.AddPropertyButton_Click);
             // 
             // PropertiesListView
             // 
@@ -275,6 +282,7 @@
             this.DeletePropertiesButton.TabIndex = 18;
             this.DeletePropertiesButton.Text = "Delete Selected Property";
             this.DeletePropertiesButton.UseVisualStyleBackColor = false;
+            this.DeletePropertiesButton.Click += new System.EventHandler(this.DeletePropertiesButton_Click);
             // 
             // UploadPhotoButton
             // 
@@ -288,6 +296,7 @@
             this.UploadPhotoButton.Text = "Upload Photo";
             this.UploadPhotoButton.UseVisualStyleBackColor = false;
             this.UploadPhotoButton.Visible = false;
+            this.UploadPhotoButton.Click += new System.EventHandler(this.UploadPhotoButton_Click);
             // 
             // ModifyButton
             // 
@@ -301,6 +310,7 @@
             this.ModifyButton.Text = "Modify Photo";
             this.ModifyButton.UseVisualStyleBackColor = false;
             this.ModifyButton.Visible = false;
+            this.ModifyButton.Click += new System.EventHandler(this.ModifyButton_Click);
             // 
             // DeletePhotoButton
             // 
@@ -315,16 +325,31 @@
             this.DeletePhotoButton.Text = "Delete Photo";
             this.DeletePhotoButton.UseVisualStyleBackColor = false;
             this.DeletePhotoButton.Visible = false;
+            this.DeletePhotoButton.Click += new System.EventHandler(this.ModifyButton_Click);
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.FileName = "openFileDialog";
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // OpenFileButton
+            // 
+            this.OpenFileButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.OpenFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OpenFileButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.OpenFileButton.Location = new System.Drawing.Point(433, 12);
+            this.OpenFileButton.Name = "OpenFileButton";
+            this.OpenFileButton.Size = new System.Drawing.Size(194, 45);
+            this.OpenFileButton.TabIndex = 22;
+            this.OpenFileButton.Text = "Upload Photo";
+            this.OpenFileButton.UseVisualStyleBackColor = false;
+            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 1053);
+            this.Controls.Add(this.OpenFileButton);
             this.Controls.Add(this.DeletePhotoButton);
             this.Controls.Add(this.ModifyButton);
             this.Controls.Add(this.UploadPhotoButton);
@@ -383,7 +408,8 @@
         private System.Windows.Forms.Button UploadPhotoButton;
         private System.Windows.Forms.Button ModifyButton;
         private System.Windows.Forms.Button DeletePhotoButton;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button OpenFileButton;
     }
 }
 

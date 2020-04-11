@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MyPhotosApi.Api.Constants
+namespace GUI_Proiect2
 {
-    
-    public static class SupportedMediaFileExtensions
+    static class  SupportedMediaFileExtensions
     {
-       
         public static Dictionary<string, string> photos = new Dictionary<string, string>()
         {
             {"JPEG Image", ".jpg" },
@@ -14,7 +15,7 @@ namespace MyPhotosApi.Api.Constants
             {"GIF Image",".gif" }
 
         };
-       
+
         public static IDictionary<string, string> videos = new Dictionary<string, string>()
         {
             {"mkv Video", ".mkv" },

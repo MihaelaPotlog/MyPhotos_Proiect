@@ -38,20 +38,20 @@ namespace WCF_Service
             return _myPhotosApi.MediaFileService.GetFilteredMediaFiles(dto);
         }
 
-        public Task<Response> LoadFile(CreateFileDto createFileDto)
+        public async Task<Response> LoadFile(CreateFileDto createFileDto)
         {
-            return _myPhotosApi.MediaFileService.LoadFile(createFileDto);
+            return await _myPhotosApi.MediaFileService.LoadFile(createFileDto);
         }
 
-        public Task<Response> ModifyMediaFile(ModifyFileDto dto)
+        public async Task<Response> ModifyMediaFile(ModifyFileDto dto)
         {
-            return _myPhotosApi.MediaFileService.ModifyMediaFile(dto);
+            return await _myPhotosApi.MediaFileService.ModifyMediaFile(dto);
         }
 
 
-        public Task<Response> AddPropertyType(string name)
+        public async Task<Response> AddPropertyType(string name)
         {
-            return _myPhotosApi.PropertyTypeService.AddPropertyType(name);
+            return await _myPhotosApi.PropertyTypeService.AddPropertyType(name);
         }
 
         public IList<PropertyTypeDto> GetAllPropertiesTypes()

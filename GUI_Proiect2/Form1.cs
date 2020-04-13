@@ -38,7 +38,7 @@ namespace GUI_Proiect2
 
             var propertyTypes = _myPhotosServiceClient.GetAllPropertyTypesWithValues();
             TypeForFilterComboBox.Items.AddRange(propertyTypes.Cast<object>().ToArray());
-
+            
 
             var propertiesTypes = _myPhotosServiceClient.GetAllPropertiesTypes();
 
@@ -192,6 +192,7 @@ namespace GUI_Proiect2
 
                 if (fileDto != default(FileDto))
                 {
+                    label1.Text = fileDto.Properties.Count.ToString();
                     foreach (var fileDtoProperty in fileDto.Properties)
                     {
                         var item = new ListViewItem(fileDtoProperty.Type);

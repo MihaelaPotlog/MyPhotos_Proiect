@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace MyPhotosApi.Api
 
         public IList<PropertyType> GetAll()
         {
-            return _myPhotosContext.PropertyTypes.ToList();
+            return _myPhotosContext.PropertyTypes.Include(propertyType=> propertyType.PropertyValues).ToList();
         }
 
     }

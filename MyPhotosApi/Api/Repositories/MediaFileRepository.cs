@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using MyPhotosApi.Api.Interfaces;
@@ -30,7 +31,11 @@ namespace MyPhotosApi.Api.Repositories
 
         public IList<MediaFile> GetAll()
         {
-            return _myPhotosContext.MediaFiles.Where(file=> file.Erased == false).ToList();
+            return _myPhotosContext.MediaFiles
+                                    .Where(file=> file.Erased == false)
+                                    .Include(file => file.PropertyValues
+                                    .Select(propertyValue => propertyValue.PropertyType))
+                                    .ToList();
         }
 
         public async Task Update()

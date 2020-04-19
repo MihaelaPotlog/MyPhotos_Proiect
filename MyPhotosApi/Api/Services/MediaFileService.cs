@@ -171,6 +171,7 @@ namespace MyPhotosApi.Api
 
         public async Task Delete(int id)
         {
+            Console.WriteLine(id);
             await _myPhotosWrapper.MediaFiles.Delete(id);
         }
 

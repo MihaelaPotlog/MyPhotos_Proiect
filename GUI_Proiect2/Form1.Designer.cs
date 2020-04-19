@@ -326,7 +326,7 @@
             this.DeletePhotoButton.Text = "Delete Photo";
             this.DeletePhotoButton.UseVisualStyleBackColor = false;
             this.DeletePhotoButton.Visible = false;
-            this.DeletePhotoButton.Click += new System.EventHandler(this.DeletePropertiesButton_Click);
+            this.DeletePhotoButton.Click += new System.EventHandler(this.DeletePhotoButton_Click);
             // 
             // openFileDialog
             // 

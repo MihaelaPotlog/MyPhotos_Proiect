@@ -15,7 +15,8 @@ namespace MyPhotosApi.Api.Interfaces
 
         IList<MediaFile> GetAll();
 
-        Task Update();
+        Task CommitAsync();
+        // Task Update(MediaFile mediaFile);
 
         Task Add(MediaFile mediaFile);
 

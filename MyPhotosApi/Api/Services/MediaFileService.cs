@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -126,7 +127,7 @@ namespace MyPhotosApi.Api
                 if (addedProperty != default(PropertyValue))
                 {
                     modifiedMediaFile.PropertyValues.Add(addedProperty);
-                    await _myPhotosWrapper.MediaFiles.Update();
+                    await _myPhotosWrapper.MediaFiles.CommitAsync();
                 }
                 else
                 {
@@ -139,7 +140,7 @@ namespace MyPhotosApi.Api
 
                     await _myPhotosWrapper.PropertyValues.Add(newPropertyValue);
                     modifiedMediaFile.PropertyValues.Add(newPropertyValue);
-                    await _myPhotosWrapper.MediaFiles.Update();
+                    await _myPhotosWrapper.MediaFiles.CommitAsync();
 
                 }
             }
@@ -147,10 +148,12 @@ namespace MyPhotosApi.Api
             foreach (var deletedPropertyInfo in dto.DeletedPropertiesInfo)
             {
                 var toDeletePropertyValue = _myPhotosWrapper.PropertyValues.GetByValueAndTypeId(deletedPropertyInfo.Value, deletedPropertyInfo.Key);
+                Console.WriteLine($"{toDeletePropertyValue.Value}, ID={toDeletePropertyValue.PropertyTypeId}");
                 if (toDeletePropertyValue != default(PropertyValue))
                 {
-                    modifiedMediaFile.PropertyValues.Remove(toDeletePropertyValue);
-                    await _myPhotosWrapper.MediaFiles.Update();
+                    Console.WriteLine("erased");
+                    Console.WriteLine(modifiedMediaFile.PropertyValues.Remove(toDeletePropertyValue));
+                    await _myPhotosWrapper.MediaFiles.CommitAsync();
                 }
             }
             return new Response(true, "Succeded");

@@ -38,7 +38,7 @@ namespace MyPhotosApi.Api.Repositories
                                     .ToList();
         }
 
-        public async Task Update()
+        public async Task CommitAsync()
         {
             await _myPhotosContext.SaveChangesAsync();
         }
@@ -64,5 +64,11 @@ namespace MyPhotosApi.Api.Repositories
                 .ToList();
             
         }
+
+        // public Task Update(MediaFile mediaFile)
+        // {
+        //
+        //     // _myPhotosContext.MediaFiles.Up
+        // }
     }
 }

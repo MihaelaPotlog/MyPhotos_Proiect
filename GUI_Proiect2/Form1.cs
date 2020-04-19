@@ -244,6 +244,8 @@ namespace GUI_Proiect2
                 if (selectedItem.SubItems[1].Tag.ToString() == "old")
                 {
                     _modifyFileDto.DeletedPropertiesInfo.Add(Int32.Parse(selectedItem.Tag.ToString()), selectedItem.SubItems[1].Text);
+                    label1.Text = selectedItem.Tag.ToString();
+                    label2.Text = selectedItem.SubItems[1].Text;
                 }
 
             }

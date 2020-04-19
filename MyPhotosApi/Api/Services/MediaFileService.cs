@@ -151,8 +151,7 @@ namespace MyPhotosApi.Api
                 Console.WriteLine($"{toDeletePropertyValue.Value}, ID={toDeletePropertyValue.PropertyTypeId}");
                 if (toDeletePropertyValue != default(PropertyValue))
                 {
-                    Console.WriteLine("erased");
-                    Console.WriteLine(modifiedMediaFile.PropertyValues.Remove(toDeletePropertyValue));
+                    modifiedMediaFile.PropertyValues.Remove(toDeletePropertyValue);
                     await _myPhotosWrapper.MediaFiles.CommitAsync();
                 }
             }

@@ -17,7 +17,10 @@ namespace MyPhotosApi.Api.Repositories
 
         public async Task<MediaFile> Get(int id)
         {
-            return await _myPhotosContext.MediaFiles.FindAsync(id);
+            var searchedMediaFile = await _myPhotosContext.MediaFiles.FindAsync(id);
+            await _myPhotosContext.Entry(searchedMediaFile).Collection(mediaFile => mediaFile.PropertyValues)
+                .LoadAsync();
+            return searchedMediaFile;
         }
 
         public async Task Delete(int id)

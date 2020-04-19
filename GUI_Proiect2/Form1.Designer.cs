@@ -254,6 +254,7 @@
             this.TypeColumn,
             this.ValueColumn});
             this.PropertiesListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PropertiesListView.FullRowSelect = true;
             this.PropertiesListView.HideSelection = false;
             this.PropertiesListView.Location = new System.Drawing.Point(673, 589);
             this.PropertiesListView.Name = "PropertiesListView";
@@ -325,7 +326,7 @@
             this.DeletePhotoButton.Text = "Delete Photo";
             this.DeletePhotoButton.UseVisualStyleBackColor = false;
             this.DeletePhotoButton.Visible = false;
-            this.DeletePhotoButton.Click += new System.EventHandler(this.ModifyButton_Click);
+            this.DeletePhotoButton.Click += new System.EventHandler(this.DeletePropertiesButton_Click);
             // 
             // openFileDialog
             // 
@@ -374,6 +375,7 @@
             this.Controls.Add(this.pictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Click += new System.EventHandler(this.AddPropertyButton_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

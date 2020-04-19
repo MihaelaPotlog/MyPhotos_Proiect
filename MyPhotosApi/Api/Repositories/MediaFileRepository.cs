@@ -59,7 +59,9 @@ namespace MyPhotosApi.Api.Repositories
             return _myPhotosContext.MediaFiles
                 .Where(file => file.PropertyValues
                                    .FirstOrDefault(elem => elem.PropertyTypeId == propertyTypeId &&
-                                                                     elem.Value == propertyValue) != default(PropertyValue) && file.Erased == false).ToList();
+                                                                     elem.Value == propertyValue) != default(PropertyValue) && file.Erased == false)
+                .Include(file=> file.PropertyValues.Select(currentPropertyValue => currentPropertyValue.PropertyType))
+                .ToList();
             
         }
     }

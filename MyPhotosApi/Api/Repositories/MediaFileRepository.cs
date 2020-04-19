@@ -24,7 +24,7 @@ namespace MyPhotosApi.Api.Repositories
             var mediaFile = await _myPhotosContext.MediaFiles.FindAsync(id);
             if (mediaFile != null)
             {
-
+                mediaFile.Erased = true;
             }
         }
 

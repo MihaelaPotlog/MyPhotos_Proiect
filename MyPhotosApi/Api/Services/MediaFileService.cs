@@ -173,6 +173,7 @@ namespace MyPhotosApi.Api
         {
             Console.WriteLine(id);
             await _myPhotosWrapper.MediaFiles.Delete(id);
+            await _myPhotosWrapper.MediaFiles.CommitAsync();
         }
 
     }

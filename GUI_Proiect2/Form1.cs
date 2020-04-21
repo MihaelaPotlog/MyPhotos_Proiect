@@ -1,15 +1,11 @@
 ﻿using MyPhotosApi.Api;
-using MyPhotosApi.Api.Constants;
 using MyPhotosApi.Api.DTOs;
 using MyPhotosApi.Api.DTOs.RequestDtos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI_Proiect2
@@ -192,7 +188,6 @@ namespace GUI_Proiect2
 
                 if (fileDto != default(FileDto))
                 {
-                    label1.Text = fileDto.Properties.Count.ToString();
                     foreach (var fileDtoProperty in fileDto.Properties)
                     {
                         var item = new ListViewItem(fileDtoProperty.Type);
@@ -244,8 +239,6 @@ namespace GUI_Proiect2
                 if (selectedItem.SubItems[1].Tag.ToString() == "old")
                 {
                     _modifyFileDto.DeletedPropertiesInfo.Add(Int32.Parse(selectedItem.Tag.ToString()), selectedItem.SubItems[1].Text);
-                    label1.Text = selectedItem.Tag.ToString();
-                    label2.Text = selectedItem.SubItems[1].Text;
                 }
 
             }

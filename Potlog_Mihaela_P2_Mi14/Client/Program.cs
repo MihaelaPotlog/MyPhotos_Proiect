@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyPhotosGUI
+namespace GUI_Proiect2
 {
     static class Program
     {
@@ -13,7 +16,7 @@ namespace MyPhotosGUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MyPhotosForm());
+            Application.Run(new Form1());
         }
     }
 }

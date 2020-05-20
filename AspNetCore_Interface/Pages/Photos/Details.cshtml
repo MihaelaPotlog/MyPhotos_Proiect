@@ -1,0 +1,43 @@
+﻿@page
+@model AspNetCore_Interface.Pages.Photos.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table class="table">
+<thead>
+<tr>
+    <th>
+        @Html.DisplayNameFor(model => model.MediaFileProperties[0].Id)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.MediaFileProperties[0].Type)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.MediaFileProperties[0].Value)
+    </th>
+</tr>
+</thead>
+<tbody>
+@foreach (var item in Model.MediaFileProperties)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @* <a asp-page="./Edit" asp-route-id="@item.CommentId">Edit</a> | *@
+            @* <a asp-page="./Delete" asp-route-id="@item.CommentId">Delete</a> | *@
+        </td>
+    </tr>
+}
+</tbody>
+</table>

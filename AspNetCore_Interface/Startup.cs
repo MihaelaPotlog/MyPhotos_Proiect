@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace AspNetCore_Interface
@@ -45,6 +47,12 @@ namespace AspNetCore_Interface
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // app.UseStaticFiles(new StaticFileOptions
+            // {
+            //     FileProvider = new PhysicalFileProvider("C:\\Users\\mihaela\\Desktop\\Photos"),
+            //     RequestPath = "/MyPhotos"
+            // });
 
             app.UseRouting();
 

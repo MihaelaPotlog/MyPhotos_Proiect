@@ -59,7 +59,7 @@ namespace GUI_Proiect2
         }
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
-            openFileDialog.InitialDirectory = "C:\\Users\\mihaela\\Desktop\\movie photos";
+            openFileDialog.InitialDirectory = "C:\\Users\\mihaela\\source\\repos\\MyPhotos\\AspNetCore_Interface\\wwwroot\\photos";
             openFileDialog.Title = "Add new Media file";
             openFileDialog.Filter = GetOpenFileDialogFilter();
         

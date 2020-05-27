@@ -5,7 +5,19 @@
 }
 
 <h1>Index</h1>
+<form>
+    <p>
+        Property Type:
+        <select asp-for="ChosenPropertyType" asp-items="Model.PropertyTypes">
+            <option value="">All</option>
+        </select>
+        Property Value: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+   
 
+    <p style="font-weight: bold"> Count of found media files: @Html.DisplayFor(modelItem => modelItem.SearchCount)</p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.MediaFiles[0].Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MediaFiles[0].Properties.Count)
+                @Html.DisplayNameFor(model => model.MediaFiles[0].Properties)
             </th>
            
             <th></th>
@@ -52,7 +64,7 @@
             </td>
             <td>
 
-                @Html.DisplayFor(modelItem => item.Properties)
+                @Html.DisplayFor(modelItem => item.Properties.Count)
 
 
             </td>

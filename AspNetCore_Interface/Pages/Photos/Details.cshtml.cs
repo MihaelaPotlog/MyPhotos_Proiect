@@ -28,10 +28,16 @@ namespace AspNetCore_Interface.Pages.Photos
             var mediaFile = mediaFiles.Find(mediaFile => mediaFile.Id == id);
             
             MediaFileProperties = _mapper.Map<List<Property>>(mediaFile.Properties);
-            MediaFileProperties = MediaFileProperties.OrderBy(property => property.Type)
-                .ThenBy(property => property.Value)
-                .ToList();
+            MediaFileProperties = MediaFileProperties.OrderBy(property => property.Value).ToList();
             MediaFile = _mapper.Map<MediaFile>(mediaFile);
+            int relativePathStartIndex = MediaFile.Path.IndexOf("photos");
+            if (relativePathStartIndex != -1)
+            {
+                MediaFile.Path = MediaFile.Path.Substring(relativePathStartIndex);
+            }
+            
+            MediaFile.Path = MediaFile.Path.Replace("\\", "/");
+            MediaFile.Path = "~/" + MediaFile.Path;
         }
     }
 }
